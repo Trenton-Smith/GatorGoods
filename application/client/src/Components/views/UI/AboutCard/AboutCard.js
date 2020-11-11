@@ -1,5 +1,6 @@
 import React from "react";
 import { Button, Card, Col } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 export default function AboutCard(props) {
   return (
@@ -10,9 +11,11 @@ export default function AboutCard(props) {
           <span className="card-subtext">{props.role}</span>
           <Card.Title>{props.name}</Card.Title>
           <Card.Text>{props.description}</Card.Text>
-            <Button variant="outline-dark" href={props.url}>
-            Learn more
-          </Button>
+          <Link to={`/about/${props.name}`}>
+            <Button variant="outline-dark">
+              Learn more
+            </Button>
+          </Link>
         </Card.Body>
       </Card>
     </Col>

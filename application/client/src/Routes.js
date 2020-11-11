@@ -1,10 +1,8 @@
 import React from "react";
 import { Switch, Route } from "react-router-dom";
 import About from "./Components/views/About/About";
-import YG from "./Components/views/About/Individual/YG";
-import Joy from "./Components/views/About/Individual/Joy";
-import Keith from "./Components/views/About/Individual/Keith";
-import Trenton from "./Components/views/About/Individual/Trenton";
+import Member from "./Components/views/About/Member";
+import Test from "./Components/views/Testing/Test";
 import NewListing from "./Components/views/NewListing/NewListing";
 import Dashboard from "./Components/dashboard/Dashboard";
 import Home from "./Components/Home";
@@ -27,10 +25,7 @@ export default function Routes() {
     <Switch>
       <Route exact path="/" component={Home} />
       <Route exact path="/about" component={Auth(About, null)} />
-      <Route exact path="/about/yg" component={Auth(YG, true)} />
-      <Route exact path="/about/joy" component={Auth(Joy, null)} />
-      <Route exact path="/about/keith" component={Auth(Keith, null)} />
-      <Route exact path="/about/trenton" component={Auth(Trenton, null)} />
+      <Route exact path="/about/yg" component={Auth(Member, null)} />
       <Route
         exact
         path="/searchresults"

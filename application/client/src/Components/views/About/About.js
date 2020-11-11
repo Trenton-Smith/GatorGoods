@@ -1,6 +1,6 @@
 import React from "react";
 import { Jumbotron, Container, Row} from "react-bootstrap";
-import "./Individual/css/About.css";
+import "./css/About.css";
 import placeholder from "../../assets/Stock_img.png";
 import keith from "../../assets/Keith.png"
 import joy from "../../assets/Joy.png"
@@ -15,8 +15,9 @@ export default function About() {
       name: "Keith Eastman",
       img: keith,
       description:
-        "I'm a student veteran with a passion for moving fast and breaking things",
-      url: "/about/keith",
+        "I'm a student veteran with a passion for moving fast and breaking things.",
+      bio:
+        "I am a senior at San Francisco State finishing my final semester before I graduate with a degree in Computer Science. I wrote my first scrap of code in visual basic in a forward aid station in Afhganistan to help manage medication inventory and reduce the workload for my squad. Since then I have gained ever deeper appreciation for what a powerful force multiplier the right software can be. In my free time I enjoy brewing beer and painting.",
     },
     {
       role: "Back-end Lead",
@@ -24,7 +25,7 @@ export default function About() {
       img: placeholder,
       description:
         "I am a senior student majoring in Computer Science at San Francisco State University.",
-      url: "/about/yg",
+      bio: "text",
     },
     {
       role: "Front-end Lead",
@@ -32,7 +33,7 @@ export default function About() {
       img: joy,
       description:
         "I am a master student majoring in Computer Science at SFSU. I love my cat.",
-      url: "/about/joy",
+      bio: "text",
     },
     {
       role: "Github Master | Editor",
@@ -40,7 +41,7 @@ export default function About() {
       img: placeholder,
       description:
         "I'm a military veteran, Computer Science major, and avid learner devoted to personal growth.",
-      url: "/about/trenton",
+      bio: "text",
     },
   ];
 

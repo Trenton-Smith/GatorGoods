@@ -25,7 +25,7 @@ export default function Routes() {
     <Switch>
       <Route exact path="/" component={Home} />
       <Route exact path="/about" component={Auth(About, null)} />
-      <Route exact path="/about/:name" component={Auth(Member, false)} />
+      <Route exact path="/about/:name" component={Auth(Member, null)} />
       <Route
         exact
         path="/searchresults"

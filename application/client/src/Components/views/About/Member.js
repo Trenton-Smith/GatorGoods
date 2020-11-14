@@ -58,6 +58,7 @@ export default function Member(props) {
           </Row>
           <Row className="text-container">
             <Col lg={{ span: 8, offset: 2 }}>
+              <hr />
               {developers.find(dev => dev.name == params.name).bio}
             </Col>
           </Row>

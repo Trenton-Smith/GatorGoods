@@ -83,6 +83,7 @@ exports.login = (req, res) => {
           if (match) {
             console.log("Matched");
             req.session.user = result[0].user_id;
+            req.session.admin = result[0].admin;
             res.send(result);
 
             // console.log(` login result => ${JSON.stringify(result)}`);
@@ -104,7 +105,7 @@ exports.login = (req, res) => {
 */
 exports.authenticate = (req, res) => {
   if (req.session.user) {
-    res.send({ loggedIn: true, user: req.session.user });
+    res.send({ loggedIn: true, user: req.session.user, admin : req.session.admin });
   } else {
     res.send({ loggedIn: false });
   }

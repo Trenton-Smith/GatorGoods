@@ -7,6 +7,7 @@ export default function auth(SpecificComponent, option) {
 
   function AuthCheck(props) {
     const [user, setUser] = useState();
+    const [admin, setAdmin] = useState();
     const history = useHistory();
     useEffect(() => {
       axios.get("/api/auth/authenticate").then(async (response) => {
@@ -18,6 +19,7 @@ export default function auth(SpecificComponent, option) {
           }
         } else {
           await setUser(response.data.user);
+          await setAdmin(response.data.admin);
           //If use loggedIn and try to access Login again
           if (option === false) {
             history.push("/");
@@ -25,7 +27,7 @@ export default function auth(SpecificComponent, option) {
         }
       });
     }, [history]);
-    return <SpecificComponent {...props} user={user} />;
+    return <SpecificComponent {...props} user={user} admin={admin} />;
   }
   return AuthCheck;
 }

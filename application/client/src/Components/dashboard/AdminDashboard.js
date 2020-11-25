@@ -9,7 +9,7 @@ export default function AdminDashboard(props) {
         <h3>Admin Dashboard</h3>
         <Container style={{ paddingTop: "2rem" }}>
             <Tabs
-                defaultActiveKey="listings"
+                defaultActiveKey="pending"
                 transition={false}
                 id="noanim-tab-example"
             >

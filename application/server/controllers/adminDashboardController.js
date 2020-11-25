@@ -4,7 +4,7 @@ const connection = require("../models/dbconnection");
 //===========================================
 
 exports.getAllPendingProducts = (req, res) => {
-  const query = `SELECT * FROM gatorgoods.Product_Listing WHERE visible=0`;
+  const query = `SELECT * FROM gatorgoods.Product_Listing WHERE visible=0 AND approval=1`;
 
   connection.query(query, (err, result) => {
     // console.log(result);
@@ -43,15 +43,13 @@ exports.getAllRejectedProducts = (req, res) => {
 };
 
 exports.approveProduct = (req, res) => {
-    const query = `SELECT * FROM gatorgoods.Product_Listing WHERE visible=1`;
+    const query = `UPDATE gatorgoods.Product_Listing
+    SET visible=1
+    WHERE product_id=${req.body.product_id}`;
   
     connection.query(query, (err, result) => {
-      // console.log(result);
+      console.log(result);
       if (err) {
-        // res.json({
-        //   sucess: false,
-        //   message: "Something went wrong. Please try again.",
-        // });
         console.log(err);
       } else {
         res.send(result);
@@ -60,15 +58,13 @@ exports.approveProduct = (req, res) => {
   };
 
   exports.rejectProduct = (req, res) => {
-    const query = `SELECT * FROM gatorgoods.Product_Listing WHERE visible=1`;
+    const query = `UPDATE gatorgoods.Product_Listing
+    SET visible=0, approval=0
+    WHERE product_id=${req.body.product_id}`;
   
     connection.query(query, (err, result) => {
-      // console.log(result);
+      console.log(result);
       if (err) {
-        // res.json({
-        //   sucess: false,
-        //   message: "Something went wrong. Please try again.",
-        // });
         console.log(err);
       } else {
         res.send(result);

@@ -16,7 +16,7 @@ export default function AdminDashboardListings(props) {
             endpoint = "getAllRejectedProducts";
           break;
         default:
-          // code block
+            endpoint = "getAllPendingProducts";
       }
   const [productListings, setProductListings] = useState([]);
   useEffect(() => {

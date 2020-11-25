@@ -6,12 +6,22 @@ const {
   //   deleteMyProduct,
 } = require("../controllers/dashboardController");
 
+const {
+  getAllPendingProducts,
+  getAllApprovedProducts,
+  getAllRejectedProducts,
+  approveProduct,
+  rejectProduct,
+} = require("../controllers/adminDashboardController");
+
 //===========================================
 //                 Dashboard
 //===========================================
 
-router.post("/getMyProducts", getMyProducts);
-// router.post("/updateMyProduct", updateMyProduct);
-// router.post("/deleteMyProduct", deleteMyProduct);
+router.post("/getAllPendingProducts", getAllPendingProducts);
+router.post("/getAllApprovedProducts", getAllApprovedProducts);
+router.post("/getAllRejectedProducts", getAllRejectedProducts);
+router.post("/approveProduct", approveProduct);
+router.post("/rejectProduct", rejectProduct);
 
 module.exports = router;

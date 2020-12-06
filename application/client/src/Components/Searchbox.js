@@ -3,8 +3,6 @@ import { useHistory } from "react-router-dom";
 import axios from "axios";
 import { Button, InputGroup, FormControl, Form } from "react-bootstrap";
 
-
-
 export default function Searchbox() {
   const [searchTerm, setSearchTerm] = useState("");
   const [category, setCategory] = useState("");
@@ -47,7 +45,7 @@ export default function Searchbox() {
   return (
     <div>
       {/* Search Bar */}
-      <InputGroup className="mx-auto" >
+      <InputGroup className="mx-auto">
         <Form.Group style={{ width: "8rem" }}>
           <Form.Control
             as="select"
@@ -59,10 +57,11 @@ export default function Searchbox() {
             <option value={"1"}>Books</option>
             <option value={"2"}>Furniture</option>
             <option value={"3"}>Electronics</option>
+            <option value={"4"}>Others</option>
           </Form.Control>
         </Form.Group>
 
-        <Form.Group inline style={{ width: "15rem" }}>
+        <Form.Group inline style={{ width: "25rem" }}>
           <FormControl
             placeholder="Search.."
             className="mr-sm-2"
@@ -83,4 +82,3 @@ export default function Searchbox() {
     </div>
   );
 }
-

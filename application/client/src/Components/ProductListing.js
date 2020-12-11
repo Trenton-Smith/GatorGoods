@@ -18,7 +18,7 @@ export default function ProductListing(props) {
     props.location.state.productListing
   );
   const newImage = new Buffer.from(props.location.state.productListing.image_blob.data).toString(
-      "base64"
+    "base64"
   );
   console.log(props.location.state.productListing);
 
@@ -28,7 +28,7 @@ export default function ProductListing(props) {
         <Row>
           <Col lg={6}>
             {/*<Image src="holder.js/100px160" roundedCircle />*/}
-            <Image src={`data:image/jpeg;base64, ${newImage}`} alt="image not found" style={{maxWidth: "450px", maxHeight: "450px"}}/>
+            <Image src={`data:image/jpeg;base64, ${newImage}`} alt="image not found" style={{ maxWidth: "450px", maxHeight: "450px" }} />
           </Col>
           <Col lg={6}>
             <h3>{productListing.title}</h3>

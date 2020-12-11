@@ -9,7 +9,7 @@ export default function Dashboard(props) {
 
   return (
     <Container className="dashboard container" style={{ marginTop: "2rem" }}>
-      {props.admin === "1" ? <AdminDashboard /> : <UserDashboard />}
+      {props.admin === "1" ? <AdminDashboard user={props.user}/> : <UserDashboard user={props.user}/>}
     </Container>
   );
 }

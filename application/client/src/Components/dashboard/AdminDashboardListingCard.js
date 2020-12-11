@@ -8,13 +8,12 @@ export default function AdminDashboardListingCard(props) {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  console.log("Test", props);
   const approveProduct = () => axios
     .post("/api/dashboard/approveProduct", {
       product_id: props.product_id
     }).then((response) => {
       console.log("Product approved", response);
-      props.reload(props.status);
+      props.reload();
     });
 
   const rejectProduct = () => axios
@@ -23,7 +22,7 @@ export default function AdminDashboardListingCard(props) {
     }).then((response) => {
       setShow(false);
       console.log("Product rejected", response);
-      props.reload(props.status);
+      props.reload();
     });
 
   return (

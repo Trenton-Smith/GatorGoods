@@ -18,23 +18,21 @@ export default function AdminDashboardListings(props) {
         default:
             endpoint = "getAllPendingProducts";
       }
+
   const [productListings, setProductListings] = useState([]);
+
   useEffect(() => {
-    axios
+    console.log("is firing")
+    reload()
+  }, [props]);
+
+  const reload = () => {
+      axios
       .post(`/api/dashboard/${endpoint}`, {
       })
       .then((response) => {
         setProductListings(response.data);
       });
-  }, [props]);
-
-  const reload = (status) => {
-    axios
-    .post(`/api/dashboard/${endpoint}`, {
-    })
-    .then((response) => {
-      setProductListings(response.data);
-    });
   }
 
   return (

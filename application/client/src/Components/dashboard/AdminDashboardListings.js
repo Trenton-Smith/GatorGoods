@@ -31,7 +31,7 @@ export default function AdminDashboardListings(props) {
   return (
     <CardDeck style={{ padding: "2.5rem" }}>
       {productListings.map((productListing, i) => (
-        <AdminDashboardListingCard key={i} {...productListing} />
+        <AdminDashboardListingCard key={i} status={props.status} {...productListing} />
       ))}
     </CardDeck>
   );

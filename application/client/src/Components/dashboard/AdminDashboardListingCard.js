@@ -8,19 +8,20 @@ export default function AdminDashboardListingCard(props) {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
+  console.log("Test", props);
   const approveProduct = () => axios
     .post("/api/dashboard/approveProduct", {
-        product_id : props.product_id
+      product_id: props.product_id
     }).then((response) => {
-        console.log("Product approved", response);
+      console.log("Product approved", response);
     });
 
   const rejectProduct = () => axios
     .post("/api/dashboard/rejectProduct", {
-        product_id : props.product_id
+      product_id: props.product_id
     }).then((response) => {
-        setShow(false);
-        console.log("Product rejected", response);
+      setShow(false);
+      console.log("Product rejected", response);
     });
 
   return (
@@ -32,15 +33,17 @@ export default function AdminDashboardListingCard(props) {
           <Card.Text>{props.price}</Card.Text>
           <Row className="justify-content-lg-center">
             <Col lg={5}>
-              <Button
-                variant="btn btn-outline-secondary"
-                className="button"
-                onClick={approveProduct}
-              >
-                Approve
+              {(props.status === "pending" || props.status === "rejected") &&
+                <Button variant="btn btn-outline-secondary"
+                  className="button"
+                  onClick={approveProduct}
+                >
+                  Approve
               </Button>
+              }
             </Col>
             <Col lg={5}>
+            {(props.status === "pending" || props.status === "approved") &&
               <Button
                 variant="secondary"
                 className="button"
@@ -48,6 +51,7 @@ export default function AdminDashboardListingCard(props) {
               >
                 Reject
               </Button>
+              }
               <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton>
                   <Modal.Title>Reject a Listing</Modal.Title>
@@ -71,6 +75,6 @@ export default function AdminDashboardListingCard(props) {
           <small className="text-muted">{props.time}</small>
         </Card.Footer>
       </Card>
-    </div>
+    </div >
   );
 }

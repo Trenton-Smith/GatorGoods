@@ -3,16 +3,40 @@ import { Card, Col, Row, Button, Modal } from "react-bootstrap";
 import axios from "axios";
 import "./Dashboard.css";
 
+/**
+ * File name: AdminDashboardListingCard.js
+ * Purpose: This is the card used to populate an admin's dashboard with all product listings. It is rendered by
+ *          way of AdminDashboardListings.js, which houses an initial post request to the db where we then return the results
+ *          to this component for rendering. We need to also create additional state for handling an admin request to
+ *          approve/reject a listing, in which case we will make a post request to change the visibility of the listing, then
+ *          refresh the view.
+ * Authors: Hesham, Blin
+ */
+
 export default function AdminDashboardListingCard(props) {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
+  /*
+   If we implement thumbnails, we will use these instead of the above values, as we will pull from the image_thumb col
+   of our image table for the lower res image files on multi-card views (home, books, furniture... etc.) and save the
+   full res images (image_blob col of Product_Listings) for individual productListing views.
+  */
+  // let newImage = new Buffer.from(props.image_thumb.data).toString();
+  // let newImage2 = new Buffer.from(props.image_thumb.data).toString("base64");
+  
   let newImage = new Buffer.from(props.image_blob.data).toString(); //renders base64 data
   let newImage2 = new Buffer.from(props.image_blob.data).toString("base64"); //renders binary data
 
   const [img, setImg] = useState(newImage2); // state for img (see above)
 
+
+  /*
+   This useEffect is for rendering images tailored to specific product_listings. For product_id's < 33, we render the
+   binary data which we manually input into the database for initial testing; and thereafter, we set our image to render
+   base64 data which is saved through the application's registered users.
+  */
   useEffect(() => {
     if (props.product_id < 33) {
       setImg(newImage2);

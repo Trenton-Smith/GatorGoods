@@ -14,6 +14,7 @@ export default function AdminDashboardListingCard(props) {
       product_id: props.product_id
     }).then((response) => {
       console.log("Product approved", response);
+      props.reload(props.status);
     });
 
   const rejectProduct = () => axios
@@ -22,6 +23,7 @@ export default function AdminDashboardListingCard(props) {
     }).then((response) => {
       setShow(false);
       console.log("Product rejected", response);
+      props.reload(props.status);
     });
 
   return (

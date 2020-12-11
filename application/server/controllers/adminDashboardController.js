@@ -4,7 +4,17 @@ const connection = require("../models/dbconnection");
 //===========================================
 
 exports.getAllPendingProducts = (req, res) => {
-  const query = `SELECT * FROM gatorgoods.Product_Listing WHERE visible=0 AND approval=0`;
+  const query = `SELECT
+                  gatorgoods.Product_Listing.*,
+                  gatorgoods.Image.*
+                 FROM
+                  gatorgoods.Product_Listing
+                 INNER JOIN
+                  gatorgoods.Image
+                 ON
+                  gatorgoods.Product_Listing.product_id=gatorgoods.Image.product
+                 WHERE
+                  visible="1" AND approval="0"`;
 
   connection.query(query, (err, result) => {
     // console.log(result);
@@ -17,7 +27,17 @@ exports.getAllPendingProducts = (req, res) => {
 };
 
 exports.getAllApprovedProducts = (req, res) => {
-    const query = `SELECT * FROM gatorgoods.Product_Listing WHERE visible=1 AND approval=1`;
+    const query = `SELECT
+                    gatorgoods.Product_Listing.*,
+                    gatorgoods.Image.*
+                   FROM
+                    gatorgoods.Product_Listing
+                   INNER JOIN
+                    gatorgoods.Image
+                   ON
+                    gatorgoods.Product_Listing.product_id=gatorgoods.Image.product
+                   WHERE
+                    visible="1" AND approval="1"`;
   
     connection.query(query, (err, result) => {
       // console.log(result);
@@ -30,7 +50,17 @@ exports.getAllApprovedProducts = (req, res) => {
 };
 
 exports.getAllRejectedProducts = (req, res) => {
-    const query = `SELECT * FROM gatorgoods.Product_Listing WHERE visible=0 AND approval=1`;
+    const query = `SELECT
+                    gatorgoods.Product_Listing.*,
+                    gatorgoods.Image.*
+                   FROM
+                    gatorgoods.Product_Listing
+                   INNER JOIN
+                    gatorgoods.Image
+                   ON
+                    gatorgoods.Product_Listing.product_id=gatorgoods.Image.product
+                   WHERE
+                    visible="0" AND approval="1"`;
   
     connection.query(query, (err, result) => {
       // console.log(result);

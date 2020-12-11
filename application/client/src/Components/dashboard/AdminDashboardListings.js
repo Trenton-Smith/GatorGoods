@@ -28,10 +28,19 @@ export default function AdminDashboardListings(props) {
       });
   }, [props]);
 
+  const reload = (status) => {
+    axios
+    .post(`/api/dashboard/${endpoint}`, {
+    })
+    .then((response) => {
+      setProductListings(response.data);
+    });
+  }
+
   return (
     <CardDeck style={{ padding: "2.5rem" }}>
       {productListings.map((productListing, i) => (
-        <AdminDashboardListingCard key={i} status={props.status} {...productListing} />
+        <AdminDashboardListingCard key={i} status={props.status} reload={reload} {...productListing} />
       ))}
     </CardDeck>
   );

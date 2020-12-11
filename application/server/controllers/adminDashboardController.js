@@ -4,7 +4,7 @@ const connection = require("../models/dbconnection");
 //===========================================
 
 exports.getAllPendingProducts = (req, res) => {
-  const query = `SELECT * FROM gatorgoods.Product_Listing WHERE visible=0 AND approval=1`;
+  const query = `SELECT * FROM gatorgoods.Product_Listing WHERE visible=0 AND approval=0`;
 
   connection.query(query, (err, result) => {
     // console.log(result);
@@ -30,7 +30,7 @@ exports.getAllApprovedProducts = (req, res) => {
 };
 
 exports.getAllRejectedProducts = (req, res) => {
-    const query = `SELECT * FROM gatorgoods.Product_Listing WHERE approval=0`;
+    const query = `SELECT * FROM gatorgoods.Product_Listing WHERE visible=0 AND approval=1`;
   
     connection.query(query, (err, result) => {
       // console.log(result);
@@ -44,7 +44,7 @@ exports.getAllRejectedProducts = (req, res) => {
 
 exports.approveProduct = (req, res) => {
     const query = `UPDATE gatorgoods.Product_Listing
-    SET visible=1
+    SET visible=1, approval=1
     WHERE product_id=${req.body.product_id}`;
   
     connection.query(query, (err, result) => {
@@ -59,7 +59,7 @@ exports.approveProduct = (req, res) => {
 
   exports.rejectProduct = (req, res) => {
     const query = `UPDATE gatorgoods.Product_Listing
-    SET visible=0, approval=0
+    SET visible=0, approval=1
     WHERE product_id=${req.body.product_id}`;
   
     connection.query(query, (err, result) => {

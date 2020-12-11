@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Card, Col, Row, Button, Modal } from "react-bootstrap";
 import axios from "axios";
 import "./Dashboard.css";
@@ -7,6 +7,19 @@ export default function AdminDashboardListingCard(props) {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
+  let newImage = new Buffer.from(props.image_blob.data).toString(); //renders base64 data
+  let newImage2 = new Buffer.from(props.image_blob.data).toString("base64"); //renders binary data
+
+  const [img, setImg] = useState(newImage2); // state for img (see above)
+
+  useEffect(() => {
+    if (props.product_id < 33) {
+      setImg(newImage2);
+    } else {
+      setImg(newImage);
+    }
+  }, [props, img]);
 
   const approveProduct = () => axios
     .post("/api/dashboard/approveProduct", {
@@ -28,14 +41,14 @@ export default function AdminDashboardListingCard(props) {
   return (
     <div>
       <Card style={{ width: "18rem" }} className="dashboard-listing-card">
-        <Card.Img variant="top" src="holder.js/100px160" />
+        <Card.Img variant="top" src={`data:image/jpeg;charset=utf-8;base64, ${img}`} />
         <Card.Body>
           <Card.Title>{props.title}</Card.Title>
           <Card.Text>{props.price}</Card.Text>
           <Row className="justify-content-lg-center">
             <Col lg={5}>
               {(props.status === "pending" || props.status === "rejected") &&
-                <Button variant="btn btn-outline-secondary"
+                <Button variant="primary"
                   className="button"
                   onClick={approveProduct}
                 >

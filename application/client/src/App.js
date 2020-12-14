@@ -6,7 +6,6 @@ import WarningBanner from "./Components/WarningBanner";
 import "bootswatch/dist/pulse/bootstrap.min.css";
 import Footer from "./Components/Footer";
 
-
 /*
 Potential implementation #1 for Google Analytics - not verified yet
  */
@@ -25,10 +24,11 @@ Potential implementation #1 for Google Analytics - not verified yet
 /*
 Potential implementation #2 for Google Analytics - not verified yet
  */
-import ReactGA from 'react-ga';
-ReactGA.initialize('G-0ECDWLTTK8');
-ReactGA.pageview(window.location.pathname + window.location.search);
-
+import ReactGA from "react-ga";
+useEffect(() => {
+  ReactGA.initialize("G-0ECDWLTTK8");
+  ReactGA.pageview(window.location.pathname + window.location.search);
+}, []);
 
 /**
  * File name: App.js

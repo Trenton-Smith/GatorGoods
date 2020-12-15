@@ -17,6 +17,7 @@ import ProductListing from "./Components/ProductListing";
 import Login from "./Components/views/UI/AuthModal/AuthModal";
 import SearchResults from "./Components/views/Testing/SearchResults";
 import Auth from "../src/utils/auth";
+import Message from "../src/Components/Message";
 
 export default function Routes() {
   // null - Anyone Can go inside
@@ -49,6 +50,7 @@ export default function Routes() {
       <Route exact path="/login" component={Auth(Login, false)} />
       <Route exact path="/newListing" component={Auth(NewListing, true)} />
       <Route exact path="/dashboard" component={Auth(Dashboard, true)} />
+      <Route exact path="/message" component={Auth(Message, true)} />
     </Switch>
   );
 }

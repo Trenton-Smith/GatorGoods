@@ -1,4 +1,5 @@
 const connection = require("../models/dbconnection");
+// const express = require("express");
 
 
 /**
@@ -12,6 +13,7 @@ const connection = require("../models/dbconnection");
  */
 
 exports.createProduct = (req, res) => {
+
   /*
    For testing
   */
@@ -68,6 +70,7 @@ exports.createProduct = (req, res) => {
   const sql3 =
       `INSERT INTO gatorgoods.Image SET ?`;
 
+
   /*
    This is the start of the multi-query transaction to our database. First we submit the formData values, then receive
    the corresponding product_id, and then finish the transaction by storing the image tied by that ID.
@@ -113,18 +116,12 @@ exports.createProduct = (req, res) => {
               console.log(err);
               throw err;
             });
-          } else {
-            res.json({
-              success: true,
-              message: "Your post was made! Please note that it may take up to 24 hours to be reviewed."
-            });
-            console.log('Transaction Complete.');
           }
+          console.log('Transaction Complete.');
           // connection.end(); // ! ! DO NOT CLOSE CONNECTION ! ! -crashes app as we need our connection to remain open at all times
-        });
         });
       });
     });
-  }
-)};
+  });
+})};
 // }

@@ -76,7 +76,6 @@ export default function DashboardListingCard(props) {
           <Card.Text>{props.description}</Card.Text>
           <Card.Text>{props.price}</Card.Text>
           <Row className="justify-content-lg-center">
-            {/* EDIT Button (below) is not currently supported */}
             {/*<Col lg={5}>*/}
             {/*  <Button*/}
             {/*    variant="btn btn-outline-secondary"*/}
@@ -114,7 +113,6 @@ export default function DashboardListingCard(props) {
             </Col>
           </Row>
         </Card.Body>
-        {/* Time (below) is not currently supported */}
         {/*<Card.Footer>*/}
           {/*<small className="text-muted">{props.time}</small>*/}
         {/*</Card.Footer>*/}

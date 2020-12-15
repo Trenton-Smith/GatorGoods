@@ -34,46 +34,6 @@ exports.getMyProducts = (req, res) => {
   });
 };
 
-// loads all messages (and corresponding data) unique to a specific user
-exports.getMyOffers = (req, res) => {
-  const query = `SELECT
-                  *
-                 FROM
-                  gatorgoods.Message
-                 WHERE
-                  seller = "${req.body.user_id}"`;
-
-  connection.query(query, (err, result) => {
-    // console.log(result);
-    if (err) {
-      console.log(err);
-    } else {
-      console.log(result);
-      res.send(result);
-    }
-  });
-}
-
-// used to render a user's email on their unique dashboard view
-exports.getMyEmail = (req, res) => {
-  const query = `SELECT
-                  email
-                 FROM
-                  gatorgoods.User
-                 WHERE
-                  user_id = "${req.body.user_id}"`;
-
-  connection.query(query, (err, result) => {
-    // console.log(result);
-    if (err) {
-      console.log(err);
-    } else {
-      console.log(result);
-      res.send(result);
-    }
-  });
-}
-
 // "deletes" a listing from the application *NOTE: the listing remains in the db (for future list/delist functionality)
 exports.deleteMyProduct = (req, res) => {
   const product_id = req.body.product_id;

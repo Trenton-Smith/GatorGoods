@@ -144,18 +144,16 @@ export default function NewListing(props) {
 
   return (
     <div style={{ marginTop: "50px" }}>
-      {/*<Container style={{ width: "800px", textAlign: "center"}}>*/}
-      <Container xs={3} style={{textAlign: "center"}}>
-        <h1 style={{marginTop: "-1rem", paddingBottom: "1rem"}}>List Your Goods!</h1>
+      <Container style={{ width: "800px" }}>
+        <h3>Create a Listing</h3>
         <br />
 
+        {/*<Form method="POST" enctype="multipart/form-data">*/} {/*FOR FIREFOX ONLY: firefox will crash w/o this format*/}
         <Form>
           <Form.Group>
-            <Form.Row>
-            <Form.Label column="xs" xs={3} style={{textAlign: "end", paddingRight: "1rem"}}>Image</Form.Label>
-            <Col xs={3} className="my-auto">
             <Form.File
               id="exampleFormControlFile1"
+              label="Image"
               name="image"
                 onChange={(e) => {
                   let filePath = e.target.value;
@@ -185,14 +183,10 @@ export default function NewListing(props) {
                   }
                 }}
             />
-            </Col>
-            </Form.Row>
           </Form.Group>
 
           <Form.Group>
-            <Form.Row>
-            <Form.Label column="xs" xs={3} style={{textAlign: "end", paddingRight: "1rem"}}>Title</Form.Label>
-            <Col xs={6} className="my-auto">
+            <Form.Label>Title</Form.Label>
             <Form.Control
               type="title"
               name="title"
@@ -203,15 +197,10 @@ export default function NewListing(props) {
             <Form.Text className="text-muted">
               Please limit to 30 characters.
             </Form.Text>
-            </Col>
-            </Form.Row>
           </Form.Group>
 
-
           <Form.Group>
-            <Form.Row>
-            <Form.Label column="xs" xs={3} style={{textAlign: "end", paddingRight: "1rem"}}>Category</Form.Label>
-              <Col xs={3} className="my-auto">
+            <Form.Label>Category</Form.Label>
             <Form.Control
               as="select"
               name="category"
@@ -224,14 +213,10 @@ export default function NewListing(props) {
               <option value={"3"}>Electronics</option>
               <option value={"4"}>Other</option>
             </Form.Control>
-              </Col>
-            </Form.Row>
           </Form.Group>
 
           <Form.Group>
-            <Form.Row>
-            <Form.Label column="xs" xs={3} style={{textAlign: "end", paddingRight: "1rem"}}>Price</Form.Label>
-            <Col xs={3} className="my-auto">
+            <Form.Label>Price</Form.Label>
             <InputGroup className="mb-2">
               <InputGroup.Prepend>
                 <InputGroup.Text>$</InputGroup.Text>
@@ -244,17 +229,13 @@ export default function NewListing(props) {
                   onChange={handleInputChange}
               />
             </InputGroup>
-            </Col>
-          </Form.Row>
           </Form.Group>
 
           <Form.Group>
-            <Form.Row>
-            <Form.Label column="xs" xs={3} style={{textAlign: "end", paddingRight: "1rem"}}>
+            <Form.Label>
               Condition
             </Form.Label>
-              <Col xs={3} className="my-auto">
-                <InputGroup className="mb-2">
+            <InputGroup className="mb-2">
               <Form.Control
                   as="select"
                   name="condition"
@@ -267,16 +248,12 @@ export default function NewListing(props) {
                 <option value={"3"}>Good</option>
                 <option value={"4"}>Acceptable</option>
               </Form.Control>
-                </InputGroup>
-              </Col>
-            </Form.Row>
+            </InputGroup>
           </Form.Group>
 
           <Form.Group>
-            <Form.Row>
-            <Form.Label column="xs" xs={3} style={{textAlign: "end", paddingRight: "1rem"}}>Transaction Location</Form.Label>
-              <Col xs={3} className="my-auto">
-                <InputGroup className="mb-2">
+            <Form.Label>Transaction Location</Form.Label>
+            <InputGroup className="mb-2">
               <Form.Control
                   as="select"
                   name="location"
@@ -289,15 +266,11 @@ export default function NewListing(props) {
                 <option value={"C. Chavez"}>C. Chavez</option>
                 <option value={"Thornton Hall"}>Thornton Hall</option>
               </Form.Control>
-                </InputGroup>
-              </Col>
-            </Form.Row>
+            </InputGroup>
           </Form.Group>
 
           <Form.Group>
-            <Form.Row>
-            <Form.Label column="xs" xs={3} style={{textAlign: "end", paddingRight: "1rem"}}>Description</Form.Label>
-              <Col xs={6} className="my-auto">
+            <Form.Label>Description</Form.Label>
             <Form.Control
               as="textarea"
               rows="5"
@@ -305,13 +278,10 @@ export default function NewListing(props) {
               value={description}
               onChange={handleInputChange}
             />
-              </Col>
-            </Form.Row>
           </Form.Group>
 
-          <Form.Group>
-          <Form.Row  style={{ marginTop: "2rem", display: "flex", flexDirection: "row", justifyContent: "center" }}>
-            <Col xs="auto" style={{paddingRight: "1rem"}}>
+          <Row style={{ marginTop: "2rem" }}>
+            <Col lg={2}>
               <Button
                 variant="secondary"
                 className="btn-lg"
@@ -321,7 +291,7 @@ export default function NewListing(props) {
                 Cancel
               </Button>
             </Col>
-            <Col xs="auto">
+            <Col>
               <Button
                 variant="primary"
                 className="btn-lg"
@@ -331,9 +301,7 @@ export default function NewListing(props) {
                 Submit
               </Button>
             </Col>
-          </Form.Row>
-          </Form.Group>
-
+          </Row>
         </Form>
       </Container>
     </div>

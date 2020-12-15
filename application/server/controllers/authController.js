@@ -25,91 +25,40 @@ exports.signup = (req, res) => {
   const checkUserquery = `SELECT * FROM gatorgoods.User WHERE email ="${email}"`;
   console.log(email);
 
-
-  /*
-   This multi-query transaction begins with checking if a user is already registered before accepting their information
-   into the database. If accepted, it then returns their credentials and logs them into the site, so that they can
-   immediately begin interacting with user-locked features.
-   */
-  connection.beginTransaction(function(err) {
+  connection.query(checkUserquery, (err, result) => {
     if (err) {
-      throw err;
+      res.json({
+        sucess: false,
+        message: "Something went wrong. Please try again.",
+      });
     }
-    connection.query(checkUserquery, (err, result) => {
-      if (err) {
-        res.json({
-          sucess: false,
-          message: "Something went wrong. Please try again.",
-        });
-      }
-      if (result.length === 0) { // if user is NOT already registered, insert into db
-        const query =
-            "INSERT INTO  gatorgoods.User(user_id, full_name, email, password) VALUES ?";
-        const values = [[user_id, full_name, email, password]];
-
-        connection.query(query, [values], (err, result) => { // user was NOT registered, go forward with db entry
-          if (err) {
-            res.json({
-              sucess: false,
-              message: "Something went wrong. Please try again.",
-            });
-          } else {
-            console.log("User was registered into the db");
-            // res
-            //     .status(200)
-            // .json({
-            //   sucess: true,
-            //   message: `Welcome! You are sucessfully registered.`,
-            // })
-          }
-        })
-
-        connection.query(checkUserquery, async (err, result) => { // auto-login after registration
-          if (err) {
-            res.json({
-              sucess: false,
-              message: "Something went wrong on login.",
-            });
-          } else {
-            const match = await bcrypt
-              .compare(req.body.password, result[0].password) // decrypting the password here
-              .then((match) => {
-                console.log(match);
-                if (match) {
-                  console.log("Matched");
-                  req.session.user = result[0].user_id;
-                  res
-                    .json({
-                      success: true,
-                      message: `Welcome ${full_name}! You're registered and logged in!`
-                    })
-                } else { // should not take this else unless server error
-                  res.json({
-                    sucess: false,
-                    message: "Wrong email or password. Try again!",
-                  });
-                }
-              });
-          }
-        })
-
-        connection.commit(function(err) { // final commit of entire transaction - if errors, void entire transaction by rollback
-          if (err) {
-            connection.rollback(function() {
-              console.log(err);
-              throw err;
-            });
-          }
-          console.log('Transaction Complete.');
-        })
-      } else { // did not pass the initial check -> specified email is already saved in the database
-        res.json({
-          sucess: false,
-          message: "User already exist. Try another email.",
-        });
-      }
-    });
-  })
+    if (result.length == 0) { // if user is NOT already registered, insert into db
+      const query =
+        "INSERT INTO  gatorgoods.User(user_id, full_name, email, password) VALUES ?";
+      const values = [[user_id, full_name, email, password]];
+      connection.query(query, [values], (err, result) => {
+        if (err) {
+          res.json({
+            sucess: false,
+            message: "Something went wrong. Please try again.",
+          });
+        } else {
+          res
+            .status(200)
+            .json({
+              sucess: true,
+              message: `Welcome! You are sucessfully registered.`,
+            })
+            .redirect("/");
+        }
+      });
+    } else {
+      res.json({
+        sucess: false,
+        message: "User already exist. Try another email.",
+      });
+    }
+  });
 };
 
 /*
@@ -136,6 +85,9 @@ exports.login = (req, res) => {
             req.session.user = result[0].user_id;
             req.session.admin = result[0].admin;
             res.send(result);
+
+            // console.log(` login result => ${JSON.stringify(result)}`);
+            // console.log(` session.user => ${JSON.stringify(req.session.user)}`);
           } else {
             res.json({
               sucess: false,

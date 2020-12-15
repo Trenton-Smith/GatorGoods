@@ -12,9 +12,6 @@ import axios from "axios";
  */
 
 export default function DashboardListings(props) {
-  /*
-   State and method for updating product listings
-  */
   const [productListings, setProductListings] = useState([]);
   useEffect(() => {
     axios
@@ -26,9 +23,6 @@ export default function DashboardListings(props) {
       });
   }, [props]);
 
-  /*
-   Returns a prebuilt CardDeck comprised of the listings returned above. The deck will be rendered in Dashboard.js.
-  */
   return (
     <div>
       <h4 style={{ paddingTop: "3rem", paddingLeft: "3rem" }}>

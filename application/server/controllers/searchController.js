@@ -112,8 +112,8 @@ exports.searchProducts = (req, res) => {
                  gatorgoods.Image
                 ON
                  gatorgoods.Product_Listing.product_id=gatorgoods.Image.product
-                WHERE title LIKE '%${searchTerm}%' AND visible="1"
-                OR description LIKE '%${searchTerm}%' AND visible="1"
+                WHERE title LIKE '%${searchTerm}%'
+                OR description LIKE '%${searchTerm}%'
                 )`;
   }
   connection.query(query, (err, result) => {

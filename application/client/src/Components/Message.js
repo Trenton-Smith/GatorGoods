@@ -2,6 +2,12 @@ import React, { useState, useEffect } from "react";
 import { Modal, Button, Col, Row, Form } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
+/**
+ * File name: Message.js
+ * Purpose: This is the message component. It has handleSend handler which calls message API
+ *          to save message information into databse.
+ * Authors: YG, Trenton, Joy
+ */
 
 export default function Message(props) {
   const [show, setShow] = useState(false); // state for displaying/hiding the "contact seller" modal

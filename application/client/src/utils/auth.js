@@ -2,6 +2,17 @@ import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
 
+/**
+ * File name: auth.js
+ * Purpose: auth fuction checks if user's authentication.
+ *          It calls get request from authenticate API ("/api/auth/authenticate") and
+ *          reroute them to login ("/login") if user is not authenticated and
+ *          if user is successfully authenticated reroute to home page("/").
+ *          It also provides user's id as props on specific components which
+ *          specified in Routes.js
+ * Authors: YG
+ */
+
 export default function auth(SpecificComponent, option) {
   axios.defaults.withCredentials = true;
 

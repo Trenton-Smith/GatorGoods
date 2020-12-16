@@ -22,11 +22,17 @@ import Blin from "./Components/views/About/Individual/Blin";
 import Hesham from "./Components/views/About/Individual/Hesham";
 import Error from "./Components/Error.js";
 
+/**
+ * File name: Routes.js
+ * Purpose: This is where we have all the routes and components connected for our program.
+ *          It is also connected to Auth.js which controls who can and who can't access
+ *          the routes based on authentication from Auth.js.
+ *          If the component is set it to null - Anyone can access the component,
+ *                                        true - Only logged in user has access,
+ *                                        false - Logged in user has NO access.
+ * Authors: Keith, YG
+ */
 export default function Routes() {
-  // null - Anyone Can go inside
-  // true - Only logged in user can go inside
-  // false - Logged in user can't go inside
-
   return (
     <Switch>
       <Route exact path="/" component={Home} />

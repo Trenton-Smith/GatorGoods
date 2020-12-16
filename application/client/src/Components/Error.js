@@ -2,21 +2,14 @@ import React, { useEffect, useState } from "react";
 import {
     Container,
     Col,
-    Row,
-    DropdownButton,
-    Dropdown,
-    CardColumns,
+    Row
 } from "react-bootstrap";
 import "./Category.css"
 
 
 export default function Error() {
-
-
-
     return (
         <div>
-            {/*<Featured />*/}
             <Container style={{ marginTop: "2rem" }}>
                 <Col>
                     <Row>
@@ -26,7 +19,6 @@ export default function Error() {
                         </Col>
                     </Row>
                 </Col>
-
             </Container>
         </div>
     );

@@ -9,22 +9,23 @@ import AdminDashboard from "./AdminDashboard";
 export default function Dashboard(props) {
 
   return (
-    <Container className="dashboard container" style={{ marginTop: "2rem" }}>
-      {props.admin === "1" ? <AdminDashboard /> : <UserDashboard />}
-
-    
+      <Container className="dashboard container" style={{marginTop: "2rem"}}>
+        {props.admin === "1" ? <AdminDashboard/> : <UserDashboard user={props.user}/>}
+      </Container>
+  )
+}
     
     
 // import axios from "axios";
 
-// /**
-//  * File name: Dashboard.js
+// /***
+//  * File name: Dashboard.js*
 //  * Purpose: This is the dashboard view for users. It is unique to each user, and offers the ability for users to view,
 //  *          delete, or edit (not currently implemented) their listings. It also offers a table for easy viewing of
 //  *          interested parties' messages. This view is locked behind a validation check, ensuring that users who are
 //  *          not logged in cannot access it.
 //  * Author: Trenton (functions) | Joy (styling)
-//  */
+//
 
 // export default function Dashboard(props) {
 //   /*
@@ -74,4 +75,4 @@ export default function Dashboard(props) {
 
 //     </Container>
 //   );
-}
+// }

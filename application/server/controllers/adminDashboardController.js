@@ -52,7 +52,7 @@ exports.approveProduct = (req, res) => {
       if (err) {
         console.log(err);
       } else {
-        res.send(result);
+        // res.send(result);
       }
     });
   };
@@ -67,7 +67,7 @@ exports.approveProduct = (req, res) => {
       if (err) {
         console.log(err);
       } else {
-        res.send(result);
+        // res.send(result);
       }
     });
   };

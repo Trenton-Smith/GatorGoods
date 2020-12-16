@@ -18,7 +18,7 @@ export default function UserDashboard(props) {
                 <DashboardListings user={props.user} />
                 </Tab>
                 <Tab eventKey="messages" title="Messages">
-                <DashboardMessages />
+                <DashboardMessages user={props.user} />
                 </Tab>
             </Tabs>
         </Container>

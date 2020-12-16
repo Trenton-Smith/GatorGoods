@@ -366,18 +366,19 @@ export default function Navigation() {
         <Navbar.Brand style={{ marginLeft: "2rem" }} href="/">
           <img src={logo} width="180" height="50" alt="logo" />
         </Navbar.Brand>
-        <Nav.Link
-          style={{ marginRight: "2rem", marginTop: "-10px" }}
-          href="/about"
+        <NavLink
+          activeStyle={{ color: "black" }}
+          style={{ marginRight: "2rem", marginTop: "-10px", color: "grey" }}
+          to="/about"
         >
           <OverlayTrigger
             key="bottom"
             placement="bottom"
             overlay={<Tooltip>About Team</Tooltip>}
           >
-            <MdInfoOutline size="2rem" style={{ color: "grey" }} />
+            <MdInfoOutline size="2rem"/>
           </OverlayTrigger>
-        </Nav.Link>
+        </NavLink>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav.Item style={{ marginTop: "5px" }}>
@@ -392,7 +393,9 @@ export default function Navigation() {
                   placement="bottom"
                   overlay={<Tooltip>Post Item</Tooltip>}
                 >
-                  <MdAddCircleOutline size="2rem"/>
+                  <MdAddCircleOutline
+                    size="2rem"
+                  />
                 </OverlayTrigger>
               </NavLink>}
               <NavLink activeStyle={{ color: "black" }} style={{ marginRight: "1rem", marginTop: "-2px", color: "grey" }}
@@ -405,7 +408,10 @@ export default function Navigation() {
                   <FaHome size="2rem"/>
                 </OverlayTrigger>
               </NavLink>
-              <Nav.Link style={{marginRight: "2rem", marginTop: "-10px" }} onClick={handleLogout}>
+              <Nav.Link
+                style={{ marginRight: "2rem", marginTop: "-10px" }}
+                onClick={handleLogoutModalShow}
+              >
                 <OverlayTrigger
                   key="bottom"
                   placement="bottom"
@@ -418,15 +424,13 @@ export default function Navigation() {
                 <Modal.Header closeButton>
                   <Modal.Title>Log out</Modal.Title>
                 </Modal.Header>
-                <Modal.Body>
-                  Are you sure you want to log out from your GatorGoods account?
-                </Modal.Body>
+                <Modal.Body>Are you sure you want to log out?</Modal.Body>
                 <Modal.Footer>
-                  <Button variant="secondary" onClick={handleLogoutModalClose}>
-                    Cancel
-                  </Button>
-                  <Button variant="primary" onClick={handleLogout}>
+                  <Button variant="secondary" onClick={handleLogout}>
                     Yes, log me out
+                  </Button>
+                  <Button variant="primary" onClick={handleLogoutModalClose}>
+                    No, keep me log in
                   </Button>
                 </Modal.Footer>
               </Modal>

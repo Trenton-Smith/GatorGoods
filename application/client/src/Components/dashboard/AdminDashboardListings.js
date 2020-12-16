@@ -5,6 +5,7 @@ import axios from "axios";
 
 export default function AdminDashboardListings(props) {
     let endpoint = "getAllPendingProducts";
+
     switch(props.status) {
         case "pending":
             endpoint = "getAllPendingProducts";
@@ -22,18 +23,16 @@ export default function AdminDashboardListings(props) {
   const [productListings, setProductListings] = useState([]);
 
   useEffect(() => {
-    console.log("I am exectured now")
-    reload()
+    axios
+    .post(`/api/dashboard/${endpoint}`, {
+    })
+    .then((response) => {
+      setProductListings(response.data);
+    });
   }, [props]);
 
   const reload = () => {
-    console.log("bruh help me")
-      axios
-      .post(`/api/dashboard/${endpoint}`, {
-      })
-      .then((response) => {
-        setProductListings(response.data);
-      });
+      props.refresh();
   }
 
   return (

@@ -61,7 +61,6 @@ export default function AdminDashboardListingCard(props) {
       product_id: props.product_id
     }).then((response) => {
       setModalState("close");
-      console.log("Product approved", response);
       props.reload();
     });
 
@@ -70,7 +69,6 @@ export default function AdminDashboardListingCard(props) {
       product_id: props.product_id
     }).then((response) => {
       setModalState("close");
-      console.log("Product rejected", response);
       props.reload();
     });
 
@@ -198,7 +196,7 @@ export default function AdminDashboardListingCard(props) {
                 Approve
               </Button>
               }
-              {(props.status === "pending" || props.status === "accepted") &&
+              {(props.status === "pending" || props.status === "approved") &&
               <Button variant="primary" onClick={rejectProduct}>
                 Reject
               </Button>

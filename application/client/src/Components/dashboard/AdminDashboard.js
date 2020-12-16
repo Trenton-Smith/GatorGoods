@@ -1,36 +1,36 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Container, Tab, Tabs } from "react-bootstrap";
 import AdminDashboardListings from "./AdminDashboardListings";
 
-function useForceUpdate(){
-    const [value, setValue] = useState(0); // integer state
-    return () => setValue(value => ++value); // update the state to force render
-}
-
 export default function AdminDashboard(props) {
+    const [status, setStatus] = useState(false);
 
-    const forceUpdate = useForceUpdate();
+    useEffect(() => {}, [status]);
 
-  return ( 
-      <>
-        <h3>Admin Dashboard</h3>
-        <Container style={{ paddingTop: "2rem" }}>
-            <Tabs
-                defaultActiveKey="pending"
-                transition={false}
-                id="noanim-tab-example"
-            >
-                <Tab eventKey="pending" title="Pending" onClick={forceUpdate}>
-                    <AdminDashboardListings status="pending"/>
-                </Tab>
-                <Tab eventKey="approved" title="Approved" onClick={forceUpdate}>
-                    <AdminDashboardListings status="approved"/>
-                </Tab>
-                <Tab eventKey="rejected" title="Rejected" onClick={forceUpdate}>
-                    <AdminDashboardListings status="rejected"/>
-                </Tab>
-            </Tabs>
-        </Container>
-      </>
-  );
+    const refresh = () => {
+        setStatus(!status);
+    }
+
+    return (
+        <>
+            <h3>Admin Dashboard</h3>
+            <Container style={{ paddingTop: "2rem" }}>
+                <Tabs
+                    defaultActiveKey="pending"
+                    transition={false}
+                    id="noanim-tab-example"
+                >
+                    <Tab eventKey="pending" title="Pending" >
+                        <AdminDashboardListings status="pending" refresh={refresh} />
+                    </Tab>
+                    <Tab eventKey="approved" title="Approved" >
+                        <AdminDashboardListings status="approved" refresh={refresh} />
+                    </Tab>
+                    <Tab eventKey="rejected" title="Rejected" >
+                        <AdminDashboardListings status="rejected" refresh={refresh} />
+                    </Tab>
+                </Tabs>
+            </Container>
+        </>
+    );
 }

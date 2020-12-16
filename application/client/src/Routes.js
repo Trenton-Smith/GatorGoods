@@ -18,6 +18,9 @@ import Login from "./Components/views/UI/AuthModal/AuthModal";
 import SearchResults from "./Components/views/Testing/SearchResults";
 import Auth from "../src/utils/auth";
 import Message from "../src/Components/Message";
+import Blin from "./Components/views/About/Individual/Blin";
+import Hesham from "./Components/views/About/Individual/Hesham";
+import Error from "./Components/Error.js";
 
 export default function Routes() {
   // null - Anyone Can go inside
@@ -32,6 +35,8 @@ export default function Routes() {
       <Route exact path="/about/joy" component={Auth(Joy, null)} />
       <Route exact path="/about/keith" component={Auth(Keith, null)} />
       <Route exact path="/about/trenton" component={Auth(Trenton, null)} />
+      <Route exact path="/about/blin" component={Auth(Blin, null)} />
+      <Route exact path="/about/hesham" component={Auth(Hesham, null)} />
       <Route
         exact
         path="/searchresults"
@@ -51,6 +56,7 @@ export default function Routes() {
       <Route exact path="/newListing" component={Auth(NewListing, true)} />
       <Route exact path="/dashboard" component={Auth(Dashboard, true)} />
       <Route exact path="/message" component={Auth(Message, true)} />
+      <Route path='*' exact={true} component={Error} />
     </Switch>
   );
 }

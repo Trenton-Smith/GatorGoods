@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Card, Col, Row } from "react-bootstrap";
+import { Card, Col, Row, Badge } from "react-bootstrap";
 import "./ListingCard.css";
 // import { useHistory } from "react-router-dom"; // legacy implementation - useful for reference
 
@@ -49,6 +49,7 @@ export default function ListingCard(props) {
   // const [flag, setFlag] = useState(true); // state for flag - legacy implementation
   const [cond, setCond] = useState("");
   const [desc, setDesc] = useState("");
+  const [conditionColor, setConditionColor] = useState("");
   /*
    This useEffect is for rendering images tailored to specific product_listings. For product_id's < 33, we render the
    binary data which we manually input into the database for initial testing; and thereafter, we set our image to render
@@ -62,12 +63,16 @@ export default function ListingCard(props) {
     }
     if (props.condition === "1") {
       setCond("Like New");
+      setConditionColor("success");
     } else if (props.condition === "2") {
       setCond("Very Good");
+      setConditionColor("warning");
     } else if (props.condition === "3") {
       setCond("Good");
+      setConditionColor("info");
     } else if (props.condition === "4") {
       setCond("Acceptable");
+      setConditionColor("light");
     }
     if (props.description.length > 90) {
       setDesc(props.description.substring(0, 90) + "...");
@@ -113,10 +118,10 @@ export default function ListingCard(props) {
               }}
               lg={11}
             >
-              <span class="badge badge-primary">${props.price}</span>
+              <Badge variant="primary">${props.price}</Badge>
             </Col>
             <Col style={{ marginLeft: "-60px", fontSize: "13pt" }} lg={1}>
-              <span class="badge badge-light">{cond}</span>
+              <Badge variant={conditionColor}>{cond}</Badge>
             </Col>
           </Row>
         </Card.Text>

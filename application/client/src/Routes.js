@@ -13,6 +13,7 @@ import Furniture from "./Components/Furniture";
 import Electronics from "./Components/Electronics";
 import Other from "./Components/Other";
 import Result from "./Components/Result";
+import Error from "./Components/Error.js";
 import ProductListing from "./Components/ProductListing";
 import Login from "./Components/views/UI/AuthModal/AuthModal";
 import SearchResults from "./Components/views/Testing/SearchResults";
@@ -49,6 +50,7 @@ export default function Routes() {
       <Route exact path="/login" component={Auth(Login, false)} />
       <Route exact path="/newListing" component={Auth(NewListing, true)} />
       <Route exact path="/dashboard" component={Auth(Dashboard, true)} />
+      <Route path='*' exact={true} component={Error} />
     </Switch>
   );
 }

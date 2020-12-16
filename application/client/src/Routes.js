@@ -5,6 +5,8 @@ import YG from "./Components/views/About/Individual/YG";
 import Joy from "./Components/views/About/Individual/Joy";
 import Keith from "./Components/views/About/Individual/Keith";
 import Trenton from "./Components/views/About/Individual/Trenton";
+import Blin from "./Components/views/About/Individual/Blin";
+import Hesham from "./Components/views/About/Individual/Hesham";
 import NewListing from "./Components/views/NewListing/NewListing";
 import Dashboard from "./Components/dashboard/Dashboard";
 import Home from "./Components/Home";
@@ -32,6 +34,8 @@ export default function Routes() {
       <Route exact path="/about/joy" component={Auth(Joy, null)} />
       <Route exact path="/about/keith" component={Auth(Keith, null)} />
       <Route exact path="/about/trenton" component={Auth(Trenton, null)} />
+      <Route exact path="/about/blin" component={Auth(Blin, null)} />
+      <Route exact path="/about/hesham" component={Auth(Hesham, null)} />
       <Route
         exact
         path="/searchresults"

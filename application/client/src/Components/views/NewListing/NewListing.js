@@ -1,6 +1,7 @@
-import React, {useState} from "react";
-import {Button, Col, Container, Form, InputGroup, Row} from "react-bootstrap";
+import React, { useState } from "react";
+import { Button, Col, Container, Form, InputGroup, Row } from "react-bootstrap";
 import axios from "axios";
+import { Redirect } from "react-router-dom";
 
 
 /**
@@ -103,160 +104,165 @@ export default function NewListing(props) {
           location: formData.get('location'),
         },
         data: {
-          headers: {'Content-Type': `multipart/form-data; boundary=${image.boundary}`},
+          headers: { 'Content-Type': `multipart/form-data; boundary=${image.boundary}` },
           file: formData.get('image'),
           // thumbnail: formData.get('thumbnail'), // not currently implemented, but we would include thumbnail imgs here
-        }})
+        }
+      })
       .then(() => {
         alert("successfully created.");
       });
   };
 
-  return (
-    <div style={{ marginTop: "50px" }}>
-      <Container style={{ width: "800px" }}>
-        <h3>Create a Listing</h3>
-        <br />
+  if (props.admin === "1") {
+    return <Redirect to='/404' />
+  } else {
+    return (
+      <div style={{ marginTop: "50px" }}>
+        <Container style={{ width: "800px" }}>
+          <h3>Create a Listing</h3>
+          <br />
 
-        {/*<Form method="POST" enctype="multipart/form-data">*/} {/*FOR FIREFOX ONLY: firefox will crash w/o this format*/}
-        <Form>
-          <Form.Group>
-            <Form.File
-              id="exampleFormControlFile1"
-              label="Image"
-              name="image"
+          {/*<Form method="POST" enctype="multipart/form-data">*/} {/*FOR FIREFOX ONLY: firefox will crash w/o this format*/}
+          <Form>
+            <Form.Group>
+              <Form.File
+                id="exampleFormControlFile1"
+                label="Image"
+                name="image"
                 onChange={(e) => {
                   console.log(e.target.files[0]); // picking our file
                   let reader = new FileReader(); // used to read our new file as data
                   reader.readAsDataURL(e.target.files[0]); // reading the file
                   reader.onloadend = function () { // after finished read, setImage()
                     setImage(
-                        reader.result.replace(/^data:.+;base64,/, '') // update 'image' as a string of b64 data
+                      reader.result.replace(/^data:.+;base64,/, '') // update 'image' as a string of b64 data
                     );
                   };
                 }}
-            />
-          </Form.Group>
+              />
+            </Form.Group>
 
-          <Form.Group>
-            <Form.Label>Title</Form.Label>
-            <Form.Control
-              type="title"
-              name="title"
-              maxLength="30"
-              value={title}
-              onChange={handleInputChange}
-            />
-            <Form.Text className="text-muted">
-              Please limit to 30 characters.
-            </Form.Text>
-          </Form.Group>
-
-          <Form.Group>
-            <Form.Label>Category</Form.Label>
-            <Form.Control
-              as="select"
-              name="category"
-              value={category}
-              onChange={handleInputChange}
-            >
-              <option>Choose</option>
-              <option value={"1"}>Books</option>
-              <option value={"2"}>Furniture</option>
-              <option value={"3"}>Electronics</option>
-              <option value={"4"}>Other</option>
-            </Form.Control>
-          </Form.Group>
-
-          <Form.Group>
-            <Form.Label>Price</Form.Label>
-            <InputGroup className="mb-2">
-              <InputGroup.Prepend>
-                <InputGroup.Text>$</InputGroup.Text>
-              </InputGroup.Prepend>
+            <Form.Group>
+              <Form.Label>Title</Form.Label>
               <Form.Control
+                type="title"
+                name="title"
+                maxLength="30"
+                value={title}
+                onChange={handleInputChange}
+              />
+              <Form.Text className="text-muted">
+                Please limit to 30 characters.
+            </Form.Text>
+            </Form.Group>
+
+            <Form.Group>
+              <Form.Label>Category</Form.Label>
+              <Form.Control
+                as="select"
+                name="category"
+                value={category}
+                onChange={handleInputChange}
+              >
+                <option>Choose</option>
+                <option value={"1"}>Books</option>
+                <option value={"2"}>Furniture</option>
+                <option value={"3"}>Electronics</option>
+                <option value={"4"}>Other</option>
+              </Form.Control>
+            </Form.Group>
+
+            <Form.Group>
+              <Form.Label>Price</Form.Label>
+              <InputGroup className="mb-2">
+                <InputGroup.Prepend>
+                  <InputGroup.Text>$</InputGroup.Text>
+                </InputGroup.Prepend>
+                <Form.Control
                   placeholder="10.00"
                   name="price"
                   maxLength="10"
                   value={price}
                   onChange={handleInputChange}
-              />
-            </InputGroup>
-          </Form.Group>
+                />
+              </InputGroup>
+            </Form.Group>
 
-          <Form.Group>
-            <Form.Label>
-              Condition
+            <Form.Group>
+              <Form.Label>
+                Condition
             </Form.Label>
-            <InputGroup className="mb-2">
-              <Form.Control
+              <InputGroup className="mb-2">
+                <Form.Control
                   as="select"
                   name="condition"
                   value={condition}
                   onChange={handleInputChange}
-              >
-                <option>Choose</option>
-                <option value={"1"}>Like New</option>
-                <option value={"2"}>Very Good</option>
-                <option value={"3"}>Good</option>
-                <option value={"4"}>Acceptable</option>
-              </Form.Control>
-            </InputGroup>
-          </Form.Group>
+                >
+                  <option>Choose</option>
+                  <option value={"1"}>Like New</option>
+                  <option value={"2"}>Very Good</option>
+                  <option value={"3"}>Good</option>
+                  <option value={"4"}>Acceptable</option>
+                </Form.Control>
+              </InputGroup>
+            </Form.Group>
 
-          <Form.Group>
-            <Form.Label>Transaction Location</Form.Label>
-            <InputGroup className="mb-2">
-              <Form.Control
+            <Form.Group>
+              <Form.Label>Transaction Location</Form.Label>
+              <InputGroup className="mb-2">
+                <Form.Control
                   as="select"
                   name="location"
                   value={location}
                   onChange={handleInputChange}
-              >
-                <option>Choose</option>
-                <option value={"Library"}>Library</option>
-                <option value={"The Village"}>The Village</option>
-                <option value={"C. Chavez"}>C. Chavez</option>
-                <option value={"Thornton Hall"}>Thornton Hall</option>
-              </Form.Control>
-            </InputGroup>
-          </Form.Group>
+                >
+                  <option>Choose</option>
+                  <option value={"Library"}>Library</option>
+                  <option value={"The Village"}>The Village</option>
+                  <option value={"C. Chavez"}>C. Chavez</option>
+                  <option value={"Thornton Hall"}>Thornton Hall</option>
+                </Form.Control>
+              </InputGroup>
+            </Form.Group>
 
-          <Form.Group>
-            <Form.Label>Description</Form.Label>
-            <Form.Control
-              as="textarea"
-              rows="5"
-              name="description"
-              value={description}
-              onChange={handleInputChange}
-            />
-          </Form.Group>
+            <Form.Group>
+              <Form.Label>Description</Form.Label>
+              <Form.Control
+                as="textarea"
+                rows="5"
+                name="description"
+                value={description}
+                onChange={handleInputChange}
+              />
+            </Form.Group>
 
-          <Row style={{ marginTop: "2rem" }}>
-            <Col lg={2}>
-              <Button
-                variant="secondary"
-                className="btn-lg"
-                type="submit"
-                href="/"
-              >
-                Cancel
+            <Row style={{ marginTop: "2rem" }}>
+              <Col lg={2}>
+                <Button
+                  variant="secondary"
+                  className="btn-lg"
+                  type="submit"
+                  href="/"
+                >
+                  Cancel
               </Button>
-            </Col>
-            <Col>
-              <Button
-                variant="primary"
-                className="btn-lg"
-                type="submit"
-                onClick={submitListing}
-              >
-                Submit
+              </Col>
+              <Col>
+                <Button
+                  variant="primary"
+                  className="btn-lg"
+                  type="submit"
+                  onClick={submitListing}
+                >
+                  Submit
               </Button>
-            </Col>
-          </Row>
-        </Form>
-      </Container>
-    </div>
-  );
+              </Col>
+            </Row>
+          </Form>
+        </Container>
+      </div>
+    );
+  }
 }

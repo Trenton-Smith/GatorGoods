@@ -394,7 +394,8 @@ export default function Navigation() {
                   <MdAddCircleOutline size="2rem"/>
                 </OverlayTrigger>
               </NavLink>}
-              <NavLink activeStyle={{ color: "black" }} style={{ marginRight: "1rem", marginTop: "-2px", color: "grey" }} to="/dashboard">
+              <NavLink activeStyle={{ color: "black" }} style={{ marginRight: "1rem", marginTop: "-2px", color: "grey" }}
+                to="/dashboard" to={{pathname: "/dashboard", dashProps: {admin: isAdmin}}}>
                 <OverlayTrigger
                   key="bottom"
                   placement="bottom"

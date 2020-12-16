@@ -4,7 +4,7 @@ import AdminDashboardListings from "./AdminDashboardListings";
 
 export default function AdminDashboard(props) {
     const [status, setStatus] = useState(false);
-
+    
     useEffect(() => { }, [status]);
 
     const refresh = () => {

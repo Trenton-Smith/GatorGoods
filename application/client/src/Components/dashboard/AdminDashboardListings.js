@@ -22,24 +22,19 @@ export default function AdminDashboardListings(props) {
   const [productListings, setProductListings] = useState([]);
 
   useEffect(() => {
-    console.log("I am exectured now")
-    reload()
-  }, [props]);
-
-  const reload = () => {
-    console.log("bruh help me")
-      axios
+    axios
       .post(`/api/dashboard/${endpoint}`, {
       })
       .then((response) => {
         setProductListings(response.data);
       });
-  }
+    console.log('I fire once');
+  }, [props]);
 
   return (
     <CardDeck style={{ padding: "2.5rem" }}>
       {productListings.map((productListing, i) => (
-        <AdminDashboardListingCard key={i} status={props.status} reload={reload} {...productListing} />
+        <AdminDashboardListingCard key={i} status={props.status} {...productListing} />
       ))}
     </CardDeck>
   );

@@ -22,11 +22,12 @@ export default function AdminDashboardListings(props) {
   const [productListings, setProductListings] = useState([]);
 
   useEffect(() => {
-    console.log("is firing")
+    console.log("I am exectured now")
     reload()
   }, [props]);
 
   const reload = () => {
+    console.log("bruh help me")
       axios
       .post(`/api/dashboard/${endpoint}`, {
       })

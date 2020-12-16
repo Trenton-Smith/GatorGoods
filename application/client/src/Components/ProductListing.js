@@ -120,9 +120,13 @@ export default function ProductListing(props) {
                 {productListing.description}
               </p>
             </Container>
+            {props.admin !== "1" && 
+            <div>
             <Button variant="primary" size="lg" onClick={handleShow}>
               <i class="far fa-comment-dots"></i> &nbsp; Contact seller
             </Button>{" "}
+            </div>
+            }
 
             {/*CONTACT  /  MESSAGE MODAL*/}
             <Modal

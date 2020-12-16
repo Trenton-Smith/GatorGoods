@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { Card, Col, Row, Button, Modal } from "react-bootstrap";
+import { Card, Col, Row, Button, Modal, Container, Image } from "react-bootstrap";
 import axios from "axios";
 import "./Dashboard.css";
+import { FaGlobeAmericas, FaRegCalendar, FaCog } from 'react-icons/fa';
 
 /**
  * File name: AdminDashboardListingCard.js
@@ -14,9 +15,19 @@ import "./Dashboard.css";
  */
 
 export default function AdminDashboardListingCard(props) {
-  const [show, setShow] = useState(false);
-  const handleClose = () => setShow(false);
-  const handleShow = () => {setShow(true)};
+  const [modalState, setModalState] = useState("close");
+
+  const handleShowModalReject = () => {
+    setModalState("modal-reject")
+  }
+
+  const handleShowModalDetails = () => {
+    setModalState("modal-details")
+  }
+
+  const handleClose = () => {
+    setModalState("close")
+  }
 
   /*
    If we implement thumbnails, we will use these instead of the above values, as we will pull from the image_thumb col
@@ -49,6 +60,7 @@ export default function AdminDashboardListingCard(props) {
     .post("/api/dashboard/approveProduct", {
       product_id: props.product_id
     }).then((response) => {
+      setModalState("close");
       console.log("Product approved", response);
       props.reload();
     });
@@ -57,20 +69,32 @@ export default function AdminDashboardListingCard(props) {
     .post("/api/dashboard/rejectProduct", {
       product_id: props.product_id
     }).then((response) => {
-      setShow(false);
+      setModalState("close");
       console.log("Product rejected", response);
       props.reload();
     });
 
+    const getCondition = (n) => {
+      if (n === "1")
+        return "Like New"
+      else if (n === "2")
+        return "Very Good"
+      else if (n==="3") 
+        return "Good"
+      else 
+        return " Acceptable"
+    }
+
   return (
     <div>
       <Card style={{ width: "18rem" }} className="dashboard-listing-card">
-        <Card.Img variant="top" src={`data:image/jpeg;charset=utf-8;base64, ${img}`} />
+        <Card.Img className="listing-card-image" variant="top" src={`data:image/jpeg;charset=utf-8;base64, ${img}`}
+          onClick={handleShowModalDetails} />
         <Card.Body>
           <Card.Title>{props.title}</Card.Title>
           <Card.Text>${props.price}</Card.Text>
 
-          {(props.status === "pending" &&
+          {props.status === "pending" &&
             <Row className="justify-content-lg-center">
               <Col lg={{ size: 6 }}>
                 <Button variant="primary"
@@ -84,28 +108,28 @@ export default function AdminDashboardListingCard(props) {
                 <Button
                   variant="secondary"
                   className="button"
-                  onClick={handleShow}
+                  onClick={handleShowModalReject}
                 >
                   Reject
               </Button>
               </Col>
             </Row>
-          )}
+          }
 
-          {(props.status === "approved" &&
+          {props.status === "approved" &&
             <Row className="justify-content-lg-center">
 
               <Col lg={{ size: 6 }}>
                 <Button
                   variant="secondary"
                   className="button"
-                  onClick={handleShow}
+                  onClick={handleShowModalReject}
                 >
                   Revoke
               </Button>
               </Col>
             </Row>
-          )}
+          }
 
           {(props.status === "rejected" &&
             <Row className="justify-content-lg-center">
@@ -122,7 +146,7 @@ export default function AdminDashboardListingCard(props) {
             </Row>
           )}
 
-          <Modal show={show} onHide={handleClose}>
+          <Modal show={modalState === "modal-reject"} onHide={handleClose}>
             <Modal.Header closeButton>
               <Modal.Title>Reject a Listing</Modal.Title>
             </Modal.Header>
@@ -139,7 +163,48 @@ export default function AdminDashboardListingCard(props) {
             </Modal.Footer>
           </Modal>
 
-
+          <Modal show={modalState === "modal-details"} onHide={handleClose}>
+            <Modal.Header closeButton>
+              <Modal.Title>Product full details</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              <Container>
+                <h2>{props.title}</h2>
+                <Row className="image-container">
+                  <Col>
+                    <Image className="modal-image" src={`data:image/jpeg;charset=utf-8;base64, ${img}`} rounded />
+                  </Col>
+                </Row>
+                <h4>
+                  Product description:
+                </h4>
+                <p>
+                  {props.description}
+                </p>
+                  <hr></hr>
+                  <FaGlobeAmericas size="1rem" style={{ color: "grey" }} /> {props.location}
+                  <hr></hr>
+                  <FaRegCalendar size="1rem" style={{ color: "grey" }} /> {props.time}
+                  <hr></hr>
+                  <FaCog size="1rem" style={{ color: "grey" }} /> {getCondition(props.condition)} 
+              </Container>
+            </Modal.Body>
+            <Modal.Footer>
+              <Button variant="secondary" onClick={handleClose}>
+                Cancel
+              </Button>
+              {(props.status === "pending" || props.status === "rejected") &&
+              <Button variant="primary" onClick={approveProduct}>
+                Approve
+              </Button>
+              }
+              {(props.status === "pending" || props.status === "accepted") &&
+              <Button variant="primary" onClick={rejectProduct}>
+                Reject
+              </Button>
+              }
+            </Modal.Footer>
+          </Modal>
         </Card.Body>
         <Card.Footer>
           <small className="text-muted">{props.time}</small>

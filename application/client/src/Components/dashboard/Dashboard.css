@@ -5,6 +5,7 @@
 
 .dashboard-listing-card {
     margin-top: 1rem;
+    overflow: hidden;
 }
 
 .dashboard-listing-card:hover {
@@ -13,4 +14,25 @@
 
 .button {
     width: 6rem;
+}
+
+.listing-card-image {
+    cursor: pointer;
+    transition: 0.25s;
+}
+
+.listing-card-image:hover {
+    transition: 0.25s;
+    transform: scale(1.035);
+}
+
+.image-container {
+    width: 100%;
+
+}
+
+.modal-image {
+    width: auto;
+    max-width: 100%;
+    overflow: hidden;
 }

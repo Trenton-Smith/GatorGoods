@@ -277,6 +277,7 @@ export default function ProductListing(props) {
                 {productListing.description}
               </p>
             </Container>
+            {props.admin !== "1" && <span>
             {isLoggedIn ? (
               <Button variant="primary" size="lg" onClick={handleShow}>
                 <i class="far fa-comment-dots"></i> &nbsp; Contact seller
@@ -291,7 +292,7 @@ export default function ProductListing(props) {
                   <i class="far fa-comment-dots"></i> &nbsp;Contact seller
                 </Button>
               </OverlayTrigger>
-            )}
+            )} </span>}
             <p
               style={{
                 marginTop: "1rem",

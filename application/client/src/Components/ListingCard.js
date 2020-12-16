@@ -1,8 +1,7 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import { Card, Col, Row } from "react-bootstrap";
 import "./ListingCard.css";
 // import { useHistory } from "react-router-dom"; // legacy implementation - useful for reference
-
 
 /**
  * File name: ListingCard.js
@@ -15,12 +14,11 @@ import "./ListingCard.css";
  */
 
 export default function ListingCard(props) {
-
   // const history = useHistory(); // for sending and receiving data between views
 
   // for routing to a unique productListing view after onClick event for specific card
   function handleClick(e) {
-    e.preventDefault()
+    e.preventDefault();
     // history.push("/productlisting", {
     //   productListing: props
     // });
@@ -63,21 +61,20 @@ export default function ListingCard(props) {
       setImg(newImage);
     }
     if (props.condition === "1") {
-      setCond("Like New")
-    } else if ( props.condition === "2") {
-      setCond("Very Good")
-    } else if ( props.condition === "3") {
-      setCond("Good")
-    } else if ( props.condition === "4") {
-      setCond("Acceptable")
+      setCond("Like New");
+    } else if (props.condition === "2") {
+      setCond("Very Good");
+    } else if (props.condition === "3") {
+      setCond("Good");
+    } else if (props.condition === "4") {
+      setCond("Acceptable");
     }
     if (props.description.length > 90) {
-      setDesc(props.description.substring(0,90) + "...")
+      setDesc(props.description.substring(0, 90) + "...");
     } else {
-      setDesc(props.description)
+      setDesc(props.description);
     }
   }, [props, img, cond, desc]);
-
 
   return (
     <Card
@@ -85,21 +82,42 @@ export default function ListingCard(props) {
       className="listingcard"
       style={{ height: "30rem", width: "15rem" }}
     >
-      {/*<Card.Img variant="top" src="holder.js/100px160" />*/  /*replaced with below, keeping for legacy reference*/}
-      <Card.Img variant="top"
-                src={`data:image/jpeg;charset=utf-8;base64, ${img}`}
-                // onError={(e)=>{if(flag){setFlag(false);setImg(newImage)}}}   /*keeping for reference*/
-                alt="image not found"
-                classname="img-thumbnail"
-                style={{maxWidth: "15rem", maxHeight: "20rem", borderBottom: "solid", borderBottomColor: "#efefef",
-                  borderWidth: "1px", marginBottom: "-10px"}}
-                 />
+      {/*<Card.Img variant="top" src="holder.js/100px160" />*/
+      /*replaced with below, keeping for legacy reference*/}
+      <Card.Img
+        variant="top"
+        src={`data:image/jpeg;charset=utf-8;base64, ${img}`}
+        // onError={(e)=>{if(flag){setFlag(false);setImg(newImage)}}}   /*keeping for reference*/
+        alt="image not found"
+        classname="img-thumbnail"
+        style={{
+          maxWidth: "15rem",
+          maxHeight: "20rem",
+          borderBottom: "solid",
+          borderBottomColor: "#efefef",
+          borderWidth: "1px",
+          marginBottom: "-10px",
+        }}
+      />
       <Card.Body>
         <Card.Title>{props.title}</Card.Title>
         <Card.Text>
           <Row className="price-condition">
-            <Col style={{marginLeft: "-40px", marginRight: "-10px", paddingLeft: "0", paddingRight: "0"}}>${props.price}</Col>
-            <Col style={{marginLeft: "-60px"}}> | Condition: {cond}</Col>
+            <Col
+              style={{
+                marginLeft: "-40px",
+                marginRight: "-10px",
+                paddingLeft: "0",
+                paddingRight: "0",
+                fontSize: "13pt",
+              }}
+              lg={11}
+            >
+              <span class="badge badge-primary">${props.price}</span>
+            </Col>
+            <Col style={{ marginLeft: "-60px", fontSize: "13pt" }} lg={1}>
+              <span class="badge badge-light">{cond}</span>
+            </Col>
           </Row>
         </Card.Text>
         <Card.Text>{desc}</Card.Text>
@@ -107,4 +125,3 @@ export default function ListingCard(props) {
     </Card>
   );
 }
-

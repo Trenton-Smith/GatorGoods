@@ -16,7 +16,7 @@ import "./Dashboard.css";
 export default function AdminDashboardListingCard(props) {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  const handleShow = () => {setShow(true)};
 
   /*
    If we implement thumbnails, we will use these instead of the above values, as we will pull from the image_thumb col
@@ -25,7 +25,7 @@ export default function AdminDashboardListingCard(props) {
   */
   // let newImage = new Buffer.from(props.image_thumb.data).toString();
   // let newImage2 = new Buffer.from(props.image_thumb.data).toString("base64");
-  
+
   let newImage = new Buffer.from(props.image_blob.data).toString(); //renders base64 data
   let newImage2 = new Buffer.from(props.image_blob.data).toString("base64"); //renders binary data
 
@@ -68,46 +68,78 @@ export default function AdminDashboardListingCard(props) {
         <Card.Img variant="top" src={`data:image/jpeg;charset=utf-8;base64, ${img}`} />
         <Card.Body>
           <Card.Title>{props.title}</Card.Title>
-          <Card.Text>{props.price}</Card.Text>
-          <Row className="justify-content-lg-center">
-            <Col lg={5}>
-              {(props.status === "pending" || props.status === "rejected") &&
+          <Card.Text>${props.price}</Card.Text>
+
+          {(props.status === "pending" &&
+            <Row className="justify-content-lg-center">
+              <Col lg={{ size: 6 }}>
                 <Button variant="primary"
                   className="button"
                   onClick={approveProduct}
                 >
                   Approve
+                </Button>
+              </Col>
+              <Col lg={{ size: 6 }}>
+                <Button
+                  variant="secondary"
+                  className="button"
+                  onClick={handleShow}
+                >
+                  Reject
               </Button>
-              }
-            </Col>
-            <Col lg={5}>
-            {(props.status === "pending" || props.status === "approved") &&
-              <Button
-                variant="secondary"
-                className="button"
-                onClick={handleShow}
-              >
+              </Col>
+            </Row>
+          )}
+
+          {(props.status === "approved" &&
+            <Row className="justify-content-lg-center">
+
+              <Col lg={{ size: 6 }}>
+                <Button
+                  variant="secondary"
+                  className="button"
+                  onClick={handleShow}
+                >
+                  Revoke
+              </Button>
+              </Col>
+            </Row>
+          )}
+
+          {(props.status === "rejected" &&
+            <Row className="justify-content-lg-center">
+
+              <Col lg={{ size: 6 }}>
+                <Button
+                  variant="primary"
+                  className="button"
+                  onClick={approveProduct}
+                >
+                  Reapprove
+              </Button>
+              </Col>
+            </Row>
+          )}
+
+          <Modal show={show} onHide={handleClose}>
+            <Modal.Header closeButton>
+              <Modal.Title>Reject a Listing</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              After rejecting, it will not be visible on the website. Are you sure you want to reject it?
+            </Modal.Body>
+            <Modal.Footer>
+              <Button variant="secondary" onClick={handleClose}>
+                Cancel
+                  </Button>
+              <Button variant="primary" onClick={rejectProduct}>
                 Reject
-              </Button>
-              }
-              <Modal show={show} onHide={handleClose}>
-                <Modal.Header closeButton>
-                  <Modal.Title>Reject a Listing</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                  After rejecting, it will not be visible on the website. Are you sure you want to reject it?
-                </Modal.Body>
-                <Modal.Footer>
-                  <Button variant="secondary" onClick={handleClose}>
-                    Cancel
                   </Button>
-                  <Button variant="primary" onClick={rejectProduct}>
-                    Reject
-                  </Button>
-                </Modal.Footer>
-              </Modal>
-            </Col>
-          </Row>
+            </Modal.Footer>
+          </Modal>
+
+
         </Card.Body>
         <Card.Footer>
           <small className="text-muted">{props.time}</small>

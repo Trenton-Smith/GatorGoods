@@ -5,6 +5,7 @@ import placeholder from "../../assets/Stock_img.png";
 import keith from "../../assets/Keith.png";
 import joy from "../../assets/Joy.png";
 import yg from "../../assets/ygphoto.jpg";
+import bln from "../../assets/blnvrf.jpg";
 
 //import axios from "axios";
 import AboutCard from "../UI/AboutCard/AboutCard";
@@ -42,6 +43,22 @@ export default function About() {
       description:
         "I'm a military veteran, Computer Science major, and avid learner devoted to personal growth.",
       url: "/about/trenton",
+    },
+    {
+      role: "Software Developer",
+      name: "Blin Varfi",
+      img: bln,
+      description:
+        "Master student at Hochschule Fulda. Growing 1% by each day!",
+      url: "/about/blin",
+    },
+    {
+      role: "Software Developer",
+      name: "Hesham",
+      img: placeholder,
+      description:
+        "Master student at Hochschule Fulda.",
+      url: "/about/hesham",
     },
   ];
 

@@ -24,7 +24,10 @@ const router = express.Router();
 
 const {
   getMyProducts,
+  // updateMyProduct, // not currently implemented (not P1 function)
   deleteMyProduct,
+  getMyOffers,
+  getMyEmail,
 } = require("../controllers/dashboardController");
 
 router.post("/getMyProducts", getMyProducts); // loads all listings into the dashboard

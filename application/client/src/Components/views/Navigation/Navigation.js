@@ -5,6 +5,7 @@ import {
   OverlayTrigger,
   Tooltip,
 } from "react-bootstrap";
+import { NavLink } from "react-router-dom";
 import Searchbox from "../../Searchbox";
 import logo from "../../assets/logo.png";
 import axios from "axios";
@@ -29,6 +30,8 @@ export default function Navigation() {
   // state which is used to hide or display buttons for accessing features that require a user to be logged-in
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
+  const [isAdmin, setIsAdmin] = useState("0");
+
   /*
    Automatically detects if a user is logged in by way of a get request to the database on load. This is what we use to
    conditionally render features.
@@ -37,9 +40,10 @@ export default function Navigation() {
     axios.defaults.withCredentials = true;
     axios.get("/api/auth/authenticate").then(async (response) => {
       await setIsLoggedIn(response.data.loggedIn);
+      await setIsAdmin(response.data.admin);
     });
     console.log(isLoggedIn);
-  }, [isLoggedIn]);
+  }, [isLoggedIn, isAdmin]);
 
   /*
    Should a user log out, this handle will make a get request which adjusts the isLoggedIn state to false. In addition,
@@ -65,15 +69,15 @@ export default function Navigation() {
           <Navbar.Brand style={{ marginLeft: "2rem" }} href="/">
             <img src={logo} width="180" height="50" alt="logo" />
           </Navbar.Brand>
-          <Nav.Link style={{ marginRight: "2rem", marginTop: "-10px" }} href="/about">
+          <NavLink activeStyle={{ color: "black" }} style={{ marginRight: "2rem", marginTop: "-10px", color: "grey" }} to="/about">
             <OverlayTrigger
                 key="bottom"
                 placement="bottom"
                 overlay={<Tooltip>About Team</Tooltip>}
             >
-              <MdInfoOutline size="2rem" style={{ color: "grey" }} />
+              <MdInfoOutline size="2rem"/>
             </OverlayTrigger>
-          </Nav.Link>
+          </NavLink>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav.Item style={{ marginTop: "5px"}}>
@@ -82,24 +86,24 @@ export default function Navigation() {
           {isLoggedIn ? (
             <Nav className="ml-auto">
               <span></span>
-              <Nav.Link style={{ marginRight: "1rem", marginTop: "-10px" }} href="/newListing">
+              {isAdmin === "0" && <NavLink activeStyle={{ color: "black" }} style={{ marginRight: "1rem", marginTop: "-2px", color: "grey"}} to="/newListing">
                 <OverlayTrigger
                   key="bottom"
                   placement="bottom"
                   overlay={<Tooltip>Post Item</Tooltip>}
                 >
-                  <MdAddCircleOutline size="2rem" style={{ color: "grey" }} />
+                  <MdAddCircleOutline size="2rem"/>
                 </OverlayTrigger>
-              </Nav.Link>
-              <Nav.Link style={{ marginRight: "1rem", marginTop: "-10px" }} href="/dashboard">
+              </NavLink>}
+              <NavLink activeStyle={{ color: "black" }} style={{ marginRight: "1rem", marginTop: "-2px", color: "grey" }} to="/dashboard">
                 <OverlayTrigger
                   key="bottom"
                   placement="bottom"
                   overlay={<Tooltip>My Dashboard</Tooltip>}
                 >
-                  <FaHome size="2rem" style={{ color: "grey" }} />
+                  <FaHome size="2rem"/>
                 </OverlayTrigger>
-              </Nav.Link>
+              </NavLink>
               <Nav.Link style={{marginRight: "2rem", marginTop: "-10px" }} onClick={handleLogout}>
                 <OverlayTrigger
                     key="bottom"
@@ -128,18 +132,18 @@ export default function Navigation() {
       <Navbar>
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav>
-            <Nav.Link style={{ marginLeft: "2.7rem", marginRight: "40px", marginTop: "-40px" }} href="./books">
+            <NavLink activeStyle={{ color: "black" }} style={{ marginLeft: "2.7rem", marginRight: "40px", marginTop: "-40px" }} to="./books">
               Books
-            </Nav.Link>
-            <Nav.Link style={{ marginRight: "40px", marginTop: "-40px" }} href="./furniture">
+            </NavLink>
+            <NavLink activeStyle={{ color: "black" }} style={{ marginRight: "40px", marginTop: "-40px" }} to="./furniture">
               Furniture
-            </Nav.Link>
-            <Nav.Link style={{ marginRight: "40px", marginTop: "-40px" }} href="./electronics">
+            </NavLink>
+            <NavLink activeStyle={{ color: "black" }} style={{ marginRight: "40px", marginTop: "-40px" }} to="./electronics">
               Electronics
-            </Nav.Link>
-            <Nav.Link style={{ marginTop: "-40px" }} href="./other">
+            </NavLink>
+            <NavLink activeStyle={{ color: "black" }} style={{ marginTop: "-40px" }} to="./other">
               Other
-            </Nav.Link>
+            </NavLink>
           </Nav>
         </Navbar.Collapse>
       </Navbar>

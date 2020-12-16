@@ -1,10 +1,9 @@
 import React from "react";
-import { Jumbotron, Container, Row } from "react-bootstrap";
+import { Jumbotron, Container, Row} from "react-bootstrap";
 import "./Individual/css/About.css";
 import placeholder from "../../assets/Stock_img.png";
-import keith from "../../assets/Keith.png";
-import joy from "../../assets/Joy.png";
-import yg from "../../assets/ygphoto.jpg";
+import keith from "../../assets/Keith.png"
+import joy from "../../assets/Joy.png"
 
 //import axios from "axios";
 import AboutCard from "../UI/AboutCard/AboutCard";
@@ -22,7 +21,7 @@ export default function About() {
     {
       role: "Back-end Lead",
       name: "Yugyeong (YG) Lee",
-      img: yg,
+      img: placeholder,
       description:
         "I am a senior student majoring in Computer Science at San Francisco State University.",
       url: "/about/yg",
@@ -72,7 +71,10 @@ export default function About() {
       <Container>
         <Row>
           {developers.map((dev, i) => (
-            <AboutCard key={i} {...dev} />
+            <AboutCard
+              key={i}
+              {...dev}
+            />
           ))}
         </Row>
       </Container>

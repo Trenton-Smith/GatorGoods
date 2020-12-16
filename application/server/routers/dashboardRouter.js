@@ -9,6 +9,25 @@ const {
 } = require("../controllers/dashboardController");
 
 
+const {
+  getAllPendingProducts,
+  getAllApprovedProducts,
+  getAllRejectedProducts,
+  approveProduct,
+  rejectProduct,
+} = require("../controllers/adminDashboardController");
+
+//===========================================
+//                 Dashboard
+//===========================================
+
+router.post("/getAllPendingProducts", getAllPendingProducts);
+router.post("/getAllApprovedProducts", getAllApprovedProducts);
+router.post("/getAllRejectedProducts", getAllRejectedProducts);
+router.post("/approveProduct", approveProduct);
+router.post("/rejectProduct", rejectProduct);
+
+
 /**
  * File name: dashboardRouter.js
  * Purpose: This is the router for post requests made from Dashboard.js, Dashboard.js -> DashboardListings.js and
@@ -21,5 +40,6 @@ router.post("/getMyProducts", getMyProducts); // loads all listings into the das
 router.post("/deleteMyProduct", deleteMyProduct); // changes visibility to 0 in db for a listing
 router.post("/getMyOffers", getMyOffers); // loads any messages from prospective buyers
 router.post("/getMyEmail", getMyEmail); // for rendering email specific to user
+
 
 module.exports = router;

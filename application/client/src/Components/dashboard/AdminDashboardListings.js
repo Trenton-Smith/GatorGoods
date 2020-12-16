@@ -5,6 +5,7 @@ import axios from "axios";
 
 export default function AdminDashboardListings(props) {
     let endpoint = "getAllPendingProducts";
+
     switch(props.status) {
         case "pending":
             endpoint = "getAllPendingProducts";
@@ -23,18 +24,21 @@ export default function AdminDashboardListings(props) {
 
   useEffect(() => {
     axios
-      .post(`/api/dashboard/${endpoint}`, {
-      })
-      .then((response) => {
-        setProductListings(response.data);
-      });
-    console.log('I fire once');
+    .post(`/api/dashboard/${endpoint}`, {
+    })
+    .then((response) => {
+      setProductListings(response.data);
+    });
   }, [props]);
 
+  const reload = () => {
+      props.refresh();
+  }
+
   return (
-    <CardDeck style={{ padding: "2.5rem" }}>
+    <CardDeck style={{ padding: "2.5rem" }} className="admin-wrapper">
       {productListings.map((productListing, i) => (
-        <AdminDashboardListingCard key={i} status={props.status} {...productListing} />
+        <AdminDashboardListingCard key={i} status={props.status} reload={reload} {...productListing} />
       ))}
     </CardDeck>
   );

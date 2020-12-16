@@ -61,7 +61,7 @@ export default function AdminDashboardListingCard(props) {
       product_id: props.product_id
     }).then((response) => {
       setModalState("close");
-      console.log("Product approved", response);
+      props.reload();
     });
 
   const rejectProduct = () => axios
@@ -69,19 +69,19 @@ export default function AdminDashboardListingCard(props) {
       product_id: props.product_id
     }).then((response) => {
       setModalState("close");
-      console.log("Product rejected", response);
+      props.reload();
     });
 
-    const getCondition = (n) => {
-      if (n === "1")
-        return "Like New"
-      else if (n === "2")
-        return "Very Good"
-      else if (n==="3") 
-        return "Good"
-      else 
-        return " Acceptable"
-    }
+  const getCondition = (n) => {
+    if (n === "1")
+      return "Like New"
+    else if (n === "2")
+      return "Very Good"
+    else if (n === "3")
+      return "Good"
+    else
+      return " Acceptable"
+  }
 
   return (
     <div>
@@ -179,12 +179,12 @@ export default function AdminDashboardListingCard(props) {
                 <p>
                   {props.description}
                 </p>
-                  <hr></hr>
-                  <FaGlobeAmericas size="1rem" style={{ color: "grey" }} /> {props.location}
-                  <hr></hr>
-                  <FaRegCalendar size="1rem" style={{ color: "grey" }} /> {props.time}
-                  <hr></hr>
-                  <FaCog size="1rem" style={{ color: "grey" }} /> {getCondition(props.condition)} 
+                <hr></hr>
+                <FaGlobeAmericas size="1rem" style={{ color: "grey" }} /> {props.location}
+                <hr></hr>
+                <FaRegCalendar size="1rem" style={{ color: "grey" }} /> {props.time}
+                <hr></hr>
+                <FaCog size="1rem" style={{ color: "grey" }} /> {getCondition(props.condition)}
               </Container>
             </Modal.Body>
             <Modal.Footer>
@@ -192,13 +192,13 @@ export default function AdminDashboardListingCard(props) {
                 Cancel
               </Button>
               {(props.status === "pending" || props.status === "rejected") &&
-              <Button variant="primary" onClick={approveProduct}>
-                Approve
+                <Button variant="primary" onClick={approveProduct}>
+                  Approve
               </Button>
               }
-              {(props.status === "pending" || props.status === "accepted") &&
-              <Button variant="primary" onClick={rejectProduct}>
-                Reject
+              {(props.status === "pending" || props.status === "approved") &&
+                <Button variant="primary" onClick={rejectProduct}>
+                  Reject
               </Button>
               }
             </Modal.Footer>

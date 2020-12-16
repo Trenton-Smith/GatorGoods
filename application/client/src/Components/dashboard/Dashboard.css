@@ -3,6 +3,12 @@
     color: #343a40  !important;
 }
 
+.admin-wrapper {
+    display: flex;
+    justify-content: center;
+
+}
+
 .dashboard-listing-card {
     margin-top: 1rem;
     overflow: hidden;

@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import {
   Container,
-  CardDeck,
   CardColumns,
   Col,
   Row,
@@ -13,7 +12,23 @@ import "./Home.css";
 import Featured from "./Featured";
 import ListingCard from "./ListingCard";
 
+
+/**
+ * File name: Home.js
+ * Purpose: This is the first view the user sees when logging onto GatorGoods.com. It contains a sampling of each
+ *          category's listings (capped at 4), and includes a welcome jumbotron as well as a featured category section.
+ *          A user must be able to search, select categories, register/log in, create a new listing, and/or view their
+ *          dashboard all from links and features available or listed on this view. Initial listings are pulled from the
+ *          db on load.
+ * Authors: YG, Trenton (functions) | Joy (styling)
+ * Notes: Still needs to implement a proper modal with preloaded values, and messaging functionality.
+ */
+
 export default function Home() {
+  /*
+   State for both the listings themselves (pulled on load), and the number of listings per category (also pulled on
+   load).
+  */
   const [bookListings, setBookListings] = useState([]);
   const [bookCount, setBookCounts] = useState([]);
   const [furnitureListings, setFurnitureListings] = useState([]);
@@ -23,6 +38,10 @@ export default function Home() {
   const [otherListings, setOtherListings] = useState([]);
   const [otherCount, setOtherCounts] = useState([]);
 
+  /*
+   The sampling of listings for each category are each pulled from separate post requests, as are the subsequent number
+   of listings query.
+  */
   useEffect(() => {
     // const getListings = () => {
     //___________________ books category and search total ____________________

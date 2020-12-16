@@ -1,5 +1,12 @@
 const mysql = require("mysql");
 
+/**
+ * File name: dbconnection.js
+ * Purpose: This is where we store database config to create and it connects to SQL databse which
+ *          is used in our entire program.
+ * Authors: YG
+ */
+
 //Create connection to remote DB
 const connection = mysql.createConnection({
   host: "54.153.71.183",

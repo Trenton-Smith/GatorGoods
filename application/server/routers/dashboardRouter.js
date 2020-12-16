@@ -1,9 +1,8 @@
 /**
  * File name: dashboardRouter.js
- * Purpose: This is the router for post requests made from Dashboard.js -> DashboardListings.js and
- *          Dashboard.js -> DashboardListingCard.js. Only two routes are needed as currently we only allow users to
- *          delete, not list/delist from their dashboard.
- * Authors: YG, Trenton
+ * Purpose: This is the router for post requests made from UserDashboard.js, UserDashboard.js -> DashboardListings.js and
+ *          UserDashboard.js -> DashboardListingCard.js, AdminDashboard.js... [TO DO]
+ * Authors: YG, Trenton, Hesham
  */
 const express = require("express");
 const router = express.Router();
@@ -14,11 +13,18 @@ const router = express.Router();
 
 const {
   getMyProducts,
+  // updateMyProduct, // not currently implemented (not P1 function)
   deleteMyProduct,
+  getMyOffers,
+  getMyEmail,
 } = require("../controllers/dashboardController");
 
-router.post("/getMyProducts", getMyProducts);
-router.post("/deleteMyProduct", deleteMyProduct);
+router.post("/getMyProducts", getMyProducts); // loads all listings into the dashboard
+// router.post("/updateMyProduct", updateMyProduct); // not currently implemented
+router.post("/deleteMyProduct", deleteMyProduct); // changes visibility to 0 in db for a listing
+router.post("/getMyOffers", getMyOffers); // loads any messages from prospective buyers
+router.post("/getMyEmail", getMyEmail); // for rendering email specific to user
+
 
 //===========================================
 //                 Admin Dashboard

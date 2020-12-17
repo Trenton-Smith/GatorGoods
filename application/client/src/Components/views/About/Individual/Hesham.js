@@ -2,7 +2,7 @@ import React from "react";
 import { Container, Row, Col, Image, Button } from "react-bootstrap";
 import "./css/YG.css";
 
-import placeholder from "../../../assets/placeholder.jpg";
+import hesham from "../../../assets/hesham.jpg";
 
 
 export default function Hesham() {
@@ -10,7 +10,7 @@ export default function Hesham() {
       <div className="yg">
         <Container>
           <Row>
-            <Image className="yg-img" src={placeholder} roundedCircle />
+            <Image className="yg-img" src={hesham} roundedCircle />
           </Row>
   
           <Container className="yg-textbox">
@@ -21,7 +21,7 @@ export default function Hesham() {
             </Row>
             <Row className="text-container" >
                 <Col lg={{ span: 8, offset: 2 }}>
-                    Finished my Computer Science Bachelor's degree in Tirana, Albania, now studying for my master's degree at Hochschule Fulda. Have worked in the past as a freelance graphic designer. Currently doing my internship with a German company. I love football, chess and philosophy.
+                    Graduated with a Computer Engineering Bachelor's degree in Alexandria, Egypt, now studying for my master's degree at Hochschule Fulda. Have interned last summer with American Express in the UK.
                 </Col>
             </Row>
   
@@ -30,7 +30,7 @@ export default function Hesham() {
                 <Button
                     className="yg-btn"
                     variant="primary"
-                    href="https://www.linkedin.com/in/xxxxx/"
+                    href="https://www.linkedin.com/in/etchsaleh/"
                   >
                     Connect with Me
                   </Button>

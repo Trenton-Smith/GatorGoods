@@ -179,6 +179,7 @@ export default function Navigation() {
     <div>
       {/* AUTHENTICATION MODAL - copied from AuthModal.js and needs to be imported in the future */}
       <Modal
+        style={{ zIndex: 999999 }}
         show={modalShow}
         size="lg"
         aria-labelledby="contained-modal-title-vcenter"

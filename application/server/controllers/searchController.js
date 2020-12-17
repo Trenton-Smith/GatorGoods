@@ -1,6 +1,5 @@
 const connection = require("../models/dbconnection");
 
-
 /**
  * File name: searchController.js
  * Purpose: This is where we house all the mysql queries related to populating our app with data from the db. Because we
@@ -9,11 +8,10 @@ const connection = require("../models/dbconnection");
  *          visible="1" because initially listings are defaulted with visibility="0" in order to NOT pull from the db
  *          until admins have performed proper vetting, in which point they will either set to 1 and allow the post,
  *          keep at 0 until further inspection, or delete the listing's row altogether.
- * Authors: Trenton
+ * Authors: Trenton, YG
  */
 
 exports.searchProducts = (req, res) => {
-
   const searchTerm = req.body.searchTerm; // passed from search bar (user enters)
   const category = req.body.category; // passed from search bar or banner selections (user selects)
   const homepage = req.body.homepage; // used as a flag for home view rendering limitations in search 2. (no user input)
@@ -38,7 +36,7 @@ exports.searchProducts = (req, res) => {
                  visible="1"
                LIMIT 0, 4`;
   } // 3. EMPTY SEARCH - user HAS NOT selected a category and entered nothing into the search bar -> return all listings
-  else if (searchTerm === "" && category === "" ) {
+  else if (searchTerm === "" && category === "") {
     query = `SELECT
                  gatorgoods.Product_Listing.*,
                  gatorgoods.Image.*
@@ -65,7 +63,7 @@ exports.searchProducts = (req, res) => {
                  category="${category}" AND
                  visible="1"`;
   } // 5. CATEGORY & TEXT SEARCH - user HAS selected a category and HAS entered text into the searchbar -> return ONLY
-    //                             listings matching the text in that specific category - if no matches, return NONE
+  //                             listings matching the text in that specific category - if no matches, return NONE
   else if (searchTerm !== "" && category !== "") {
     query = `SELECT
                  gatorgoods.Product_Listing.*,
@@ -78,9 +76,9 @@ exports.searchProducts = (req, res) => {
                  gatorgoods.Product_Listing.product_id=gatorgoods.Image.product
                WHERE 
                 title LIKE '%${searchTerm}%' AND category LIKE '%${category}%' AND visible="1"
-               OR description LIKE '%${searchTerm}%' AND category LIKE '%${category}%' AND visible="1"`
+               OR description LIKE '%${searchTerm}%' AND category LIKE '%${category}%' AND visible="1"`;
   } // 6. TEXT SEARCH - user HAS NOT selected a category but HAS entered text -> return ANY listings matching text - if
-    //                  no matches, return SAMPLING (default matches any listings with 'a' in title)
+  //                  no matches, return SAMPLING (default matches any listings with 'a' in title)
   else if (searchTerm !== "" && category === "") {
     query = `SELECT
                  gatorgoods.Product_Listing.*,
@@ -112,8 +110,8 @@ exports.searchProducts = (req, res) => {
                  gatorgoods.Image
                 ON
                  gatorgoods.Product_Listing.product_id=gatorgoods.Image.product
-                WHERE title LIKE '%${searchTerm}%'
-                OR description LIKE '%${searchTerm}%'
+                WHERE title LIKE '%${searchTerm}%' AND visible="1"
+                OR description LIKE '%${searchTerm}%' AND visible="1"
                 )`;
   }
   connection.query(query, (err, result) => {

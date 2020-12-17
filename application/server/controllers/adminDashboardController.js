@@ -14,7 +14,7 @@ exports.getAllPendingProducts = (req, res) => {
                  ON
                   gatorgoods.Product_Listing.product_id=gatorgoods.Image.product
                  WHERE
-                  visible="1" AND approval="0"`;
+                  visible="0" AND approval="0"`;
 
   connection.query(query, (err, result) => {
     // console.log(result);

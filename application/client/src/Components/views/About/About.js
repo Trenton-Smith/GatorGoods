@@ -6,6 +6,7 @@ import keith from "../../assets/Keith.png";
 import joy from "../../assets/Joy.png";
 import yg from "../../assets/ygphoto.jpg";
 import bln from "../../assets/blnvrf.jpg";
+import hesham from "../../assets/hesham.jpg";
 
 //import axios from "axios";
 import AboutCard from "../UI/AboutCard/AboutCard";
@@ -54,10 +55,10 @@ export default function About() {
     },
     {
       role: "Software Developer",
-      name: "Hesham",
-      img: placeholder,
+      name: "Hesham Ahmed",
+      img: hesham,
       description:
-        "Master student at Hochschule Fulda.",
+        "1st semester master student at HS Fulda.",
       url: "/about/hesham",
     },
   ];

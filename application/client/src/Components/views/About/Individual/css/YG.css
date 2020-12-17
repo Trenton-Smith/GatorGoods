@@ -22,18 +22,18 @@
 }
 .yg-textbox {
   display: block;
-  margin: 3rem;
-  width: 40%;
+  margin-top: 3rem;
+  margin-bottom: 3rem;
+  /*width: 40%;*/
   text-align: center;
   padding-bottom: 9rem;
 }
 .text-container {
-  margin-left: 10rem;
-  margin-right: 10rem;
+  /*margin-left: 10rem;*/
+  /*margin-right: 10rem;*/
   padding: 1rem;
 }
 
 .yg-btn {
   margin: 1rem;
 }
-

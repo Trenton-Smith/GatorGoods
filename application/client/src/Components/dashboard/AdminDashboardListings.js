@@ -36,9 +36,9 @@ export default function AdminDashboardListings(props) {
   }, [props]);
 
   return (
-    <CardDeck style={{ padding: "2.5rem" }}>
+    <CardDeck style={{ padding: "2.5rem" }} className="admin-wrapper">
       {productListings.map((productListing, i) => (
-        <AdminDashboardListingCard key={i} status={props.status} {...productListing} />
+        <AdminDashboardListingCard key={i} status={props.status} reload={reload} {...productListing} />
       ))}
     </CardDeck>
   );

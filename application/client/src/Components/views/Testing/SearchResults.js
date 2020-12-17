@@ -159,7 +159,7 @@ export default function SearchResults(props) {
               </Row>
             ) : (
               <Row className="justify-content-md-center">
-                <h2 style={{ margin: "1.5rem", margin: "5rem" }}>Loading...</h2>
+                <h2 style={{ margin: "5rem" }}>Loading...</h2>
               </Row>
             )}
           </Container>

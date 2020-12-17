@@ -1,8 +1,7 @@
 import React from "react";
 import { Container, Row, Col, Image, Button } from "react-bootstrap";
 import "./css/YG.css";
-
-import placeholder from "../../../assets/Stock_img.png";
+import joyImg from "../../../assets/Joy.png";
 
 
 export default function Joy() {
@@ -10,7 +9,7 @@ export default function Joy() {
     <div className="yg">
       <Container>
         <Row>
-          <Image className="yg-img" src={placeholder} roundedCircle />
+          <Image className="yg-img" src={joyImg} roundedCircle />
         </Row>
 
         <Container className="yg-textbox">

@@ -61,7 +61,7 @@ export default function AdminDashboardListingCard(props) {
       product_id: props.product_id
     }).then((response) => {
       setModalState("close");
-      console.log("Product approved", response);
+      props.reload();
     });
 
   const rejectProduct = () => axios
@@ -69,7 +69,7 @@ export default function AdminDashboardListingCard(props) {
       product_id: props.product_id
     }).then((response) => {
       setModalState("close");
-      console.log("Product rejected", response);
+      props.reload();
     });
 
     const getCondition = (n) => {

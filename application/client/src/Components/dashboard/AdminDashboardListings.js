@@ -21,6 +21,10 @@ export default function AdminDashboardListings(props) {
 
   const [productListings, setProductListings] = useState([]);
 
+  const reload = () => {
+    props.refresh();
+}
+
   useEffect(() => {
     axios
       .post(`/api/dashboard/${endpoint}`, {

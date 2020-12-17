@@ -14,7 +14,6 @@ export default function Dashboard(props) {
 
   return (
     <Container className="dashboard container" style={{ marginTop: "2rem" }}>
-      {props.admin === "1" ? <AdminDashboard user={props.user}/> : <UserDashboard user={props.user}/>}
       {isAdmin() === true ? <AdminDashboard user={props.user}/> : <UserDashboard user={props.user}/>}
     </Container>
   );

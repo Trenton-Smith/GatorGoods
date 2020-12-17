@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import {Button, Col, Container, Form, InputGroup, Row} from "react-bootstrap";
 import axios from "axios";
+import { Redirect } from "react-router-dom";
 
 
 /**
@@ -142,200 +143,204 @@ export default function NewListing(props) {
     }
   };
 
-  return (
-    <div style={{ marginTop: "50px" }}>
-      {/*<Container style={{ width: "800px", textAlign: "center"}}>*/}
-      <Container xs={3} style={{textAlign: "center"}}>
-        <h1 style={{marginTop: "-1rem", paddingBottom: "1rem"}}>List Your Goods!</h1>
-        <br />
+  if (props.admin === "1") {
+    return <Redirect to='/404' />
+  } else {
+      return (
+        <div style={{ marginTop: "50px" }}>
+          {/*<Container style={{ width: "800px", textAlign: "center"}}>*/}
+          <Container xs={3} style={{textAlign: "center"}}>
+            <h1 style={{marginTop: "-1rem", paddingBottom: "1rem"}}>List Your Goods!</h1>
+            <br />
 
-        <Form>
-          <Form.Group>
-            <Form.Row>
-            <Form.Label column="xs" xs={3} style={{textAlign: "end", paddingRight: "1rem"}}>Image</Form.Label>
-            <Col xs={3} className="my-auto">
-            <Form.File
-              id="exampleFormControlFile1"
-              name="image"
-                onChange={(e) => {
-                  let filePath = e.target.value;
+            <Form>
+              <Form.Group>
+                <Form.Row>
+                <Form.Label column="xs" xs={3} style={{textAlign: "end", paddingRight: "1rem"}}>Image</Form.Label>
+                <Col xs={3} className="my-auto">
+                <Form.File
+                  id="exampleFormControlFile1"
+                  name="image"
+                    onChange={(e) => {
+                      let filePath = e.target.value;
 
-                  // Allowed file types
-                  let allowedExtensions =
-                      /(\.jpg|\.jpeg|\.png|\.gif)$/i;
+                      // Allowed file types
+                      let allowedExtensions =
+                          /(\.jpg|\.jpeg|\.png|\.gif)$/i;
 
-                  // if the extension doesn't match, alert and dispose file
-                  if (!allowedExtensions.exec(filePath)) {
-                    alert('Invalid file type');
-                    e.target.value = '';
-                    setImage(
-                        ""
-                    );
-                    return false;
-                  }
-                  else { // file is an image -> continue transformation to base64
-                    console.log(e.target.files[0]); // picking our file
-                    let reader = new FileReader(); // used to read our new file as data
-                    reader.readAsDataURL(e.target.files[0]); // reading the file
-                    reader.onloadend = function () { // after finished read, setImage()
-                      setImage(
-                          reader.result.replace(/^data:.+;base64,/, '') // update 'image' as a string of b64 data
-                      );
-                    };
-                  }
-                }}
-            />
-            </Col>
-            </Form.Row>
-          </Form.Group>
+                      // if the extension doesn't match, alert and dispose file
+                      if (!allowedExtensions.exec(filePath)) {
+                        alert('Invalid file type');
+                        e.target.value = '';
+                        setImage(
+                            ""
+                        );
+                        return false;
+                      }
+                      else { // file is an image -> continue transformation to base64
+                        console.log(e.target.files[0]); // picking our file
+                        let reader = new FileReader(); // used to read our new file as data
+                        reader.readAsDataURL(e.target.files[0]); // reading the file
+                        reader.onloadend = function () { // after finished read, setImage()
+                          setImage(
+                              reader.result.replace(/^data:.+;base64,/, '') // update 'image' as a string of b64 data
+                          );
+                        };
+                      }
+                    }}
+                />
+                </Col>
+                </Form.Row>
+              </Form.Group>
 
-          <Form.Group>
-            <Form.Row>
-            <Form.Label column="xs" xs={3} style={{textAlign: "end", paddingRight: "1rem"}}>Title</Form.Label>
-            <Col xs={6} className="my-auto">
-            <Form.Control
-              type="title"
-              name="title"
-              maxLength="30"
-              value={title}
-              onChange={handleInputChange}
-            />
-            <Form.Text className="text-muted">
-              Please limit to 30 characters.
-            </Form.Text>
-            </Col>
-            </Form.Row>
-          </Form.Group>
-
-
-          <Form.Group>
-            <Form.Row>
-            <Form.Label column="xs" xs={3} style={{textAlign: "end", paddingRight: "1rem"}}>Category</Form.Label>
-              <Col xs={3} className="my-auto">
-            <Form.Control
-              as="select"
-              name="category"
-              value={category}
-              onChange={handleInputChange}
-            >
-              <option value={""}>Choose</option>
-              <option value={"1"}>Books</option>
-              <option value={"2"}>Furniture</option>
-              <option value={"3"}>Electronics</option>
-              <option value={"4"}>Other</option>
-            </Form.Control>
-              </Col>
-            </Form.Row>
-          </Form.Group>
-
-          <Form.Group>
-            <Form.Row>
-            <Form.Label column="xs" xs={3} style={{textAlign: "end", paddingRight: "1rem"}}>Price</Form.Label>
-            <Col xs={3} className="my-auto">
-            <InputGroup className="mb-2">
-              <InputGroup.Prepend>
-                <InputGroup.Text>$</InputGroup.Text>
-              </InputGroup.Prepend>
-              <Form.Control
-                  placeholder="10.00"
-                  name="price"
-                  maxLength="10"
-                  value={price}
+              <Form.Group>
+                <Form.Row>
+                <Form.Label column="xs" xs={3} style={{textAlign: "end", paddingRight: "1rem"}}>Title</Form.Label>
+                <Col xs={6} className="my-auto">
+                <Form.Control
+                  type="title"
+                  name="title"
+                  maxLength="30"
+                  value={title}
                   onChange={handleInputChange}
-              />
-            </InputGroup>
-            </Col>
-          </Form.Row>
-          </Form.Group>
+                />
+                <Form.Text className="text-muted">
+                  Please limit to 30 characters.
+                </Form.Text>
+                </Col>
+                </Form.Row>
+              </Form.Group>
 
-          <Form.Group>
-            <Form.Row>
-            <Form.Label column="xs" xs={3} style={{textAlign: "end", paddingRight: "1rem"}}>
-              Condition
-            </Form.Label>
-              <Col xs={3} className="my-auto">
-                <InputGroup className="mb-2">
-              <Form.Control
+
+              <Form.Group>
+                <Form.Row>
+                <Form.Label column="xs" xs={3} style={{textAlign: "end", paddingRight: "1rem"}}>Category</Form.Label>
+                  <Col xs={3} className="my-auto">
+                <Form.Control
                   as="select"
-                  name="condition"
-                  value={condition}
+                  name="category"
+                  value={category}
                   onChange={handleInputChange}
-              >
-                <option value={""}>Choose</option>
-                <option value={"1"}>Like New</option>
-                <option value={"2"}>Very Good</option>
-                <option value={"3"}>Good</option>
-                <option value={"4"}>Acceptable</option>
-              </Form.Control>
-                </InputGroup>
-              </Col>
-            </Form.Row>
-          </Form.Group>
+                >
+                  <option value={""}>Choose</option>
+                  <option value={"1"}>Books</option>
+                  <option value={"2"}>Furniture</option>
+                  <option value={"3"}>Electronics</option>
+                  <option value={"4"}>Other</option>
+                </Form.Control>
+                  </Col>
+                </Form.Row>
+              </Form.Group>
 
-          <Form.Group>
-            <Form.Row>
-            <Form.Label column="xs" xs={3} style={{textAlign: "end", paddingRight: "1rem"}}>Transaction Location</Form.Label>
-              <Col xs={3} className="my-auto">
+              <Form.Group>
+                <Form.Row>
+                <Form.Label column="xs" xs={3} style={{textAlign: "end", paddingRight: "1rem"}}>Price</Form.Label>
+                <Col xs={3} className="my-auto">
                 <InputGroup className="mb-2">
-              <Form.Control
-                  as="select"
-                  name="location"
-                  value={location}
-                  onChange={handleInputChange}
-              >
-                <option value={""}>Choose</option>
-                <option value={"Library"}>Library</option>
-                <option value={"The Village"}>The Village</option>
-                <option value={"C. Chavez"}>C. Chavez</option>
-                <option value={"Thornton Hall"}>Thornton Hall</option>
-              </Form.Control>
+                  <InputGroup.Prepend>
+                    <InputGroup.Text>$</InputGroup.Text>
+                  </InputGroup.Prepend>
+                  <Form.Control
+                      placeholder="10.00"
+                      name="price"
+                      maxLength="10"
+                      value={price}
+                      onChange={handleInputChange}
+                  />
                 </InputGroup>
-              </Col>
-            </Form.Row>
-          </Form.Group>
+                </Col>
+              </Form.Row>
+              </Form.Group>
 
-          <Form.Group>
-            <Form.Row>
-            <Form.Label column="xs" xs={3} style={{textAlign: "end", paddingRight: "1rem"}}>Description</Form.Label>
-              <Col xs={6} className="my-auto">
-            <Form.Control
-              as="textarea"
-              rows="5"
-              name="description"
-              value={description}
-              onChange={handleInputChange}
-            />
-              </Col>
-            </Form.Row>
-          </Form.Group>
+              <Form.Group>
+                <Form.Row>
+                <Form.Label column="xs" xs={3} style={{textAlign: "end", paddingRight: "1rem"}}>
+                  Condition
+                </Form.Label>
+                  <Col xs={3} className="my-auto">
+                    <InputGroup className="mb-2">
+                  <Form.Control
+                      as="select"
+                      name="condition"
+                      value={condition}
+                      onChange={handleInputChange}
+                  >
+                    <option value={""}>Choose</option>
+                    <option value={"1"}>Like New</option>
+                    <option value={"2"}>Very Good</option>
+                    <option value={"3"}>Good</option>
+                    <option value={"4"}>Acceptable</option>
+                  </Form.Control>
+                    </InputGroup>
+                  </Col>
+                </Form.Row>
+              </Form.Group>
 
-          <Form.Group>
-          <Form.Row  style={{ marginTop: "2rem", display: "flex", flexDirection: "row", justifyContent: "center" }}>
-            <Col xs="auto" style={{paddingRight: "1rem"}}>
-              <Button
-                variant="secondary"
-                className="btn-lg"
-                type="submit"
-                href="/"
-              >
-                Cancel
-              </Button>
-            </Col>
-            <Col xs="auto">
-              <Button
-                variant="primary"
-                className="btn-lg"
-                type="submit"
-                onClick={submitListing}
-              >
-                Submit
-              </Button>
-            </Col>
-          </Form.Row>
-          </Form.Group>
+              <Form.Group>
+                <Form.Row>
+                <Form.Label column="xs" xs={3} style={{textAlign: "end", paddingRight: "1rem"}}>Transaction Location</Form.Label>
+                  <Col xs={3} className="my-auto">
+                    <InputGroup className="mb-2">
+                  <Form.Control
+                      as="select"
+                      name="location"
+                      value={location}
+                      onChange={handleInputChange}
+                  >
+                    <option value={""}>Choose</option>
+                    <option value={"Library"}>Library</option>
+                    <option value={"The Village"}>The Village</option>
+                    <option value={"C. Chavez"}>C. Chavez</option>
+                    <option value={"Thornton Hall"}>Thornton Hall</option>
+                  </Form.Control>
+                    </InputGroup>
+                  </Col>
+                </Form.Row>
+              </Form.Group>
 
-        </Form>
-      </Container>
-    </div>
-  );
+              <Form.Group>
+                <Form.Row>
+                <Form.Label column="xs" xs={3} style={{textAlign: "end", paddingRight: "1rem"}}>Description</Form.Label>
+                  <Col xs={6} className="my-auto">
+                <Form.Control
+                  as="textarea"
+                  rows="5"
+                  name="description"
+                  value={description}
+                  onChange={handleInputChange}
+                />
+                  </Col>
+                </Form.Row>
+              </Form.Group>
+
+              <Form.Group>
+              <Form.Row  style={{ marginTop: "2rem", display: "flex", flexDirection: "row", justifyContent: "center" }}>
+                <Col xs="auto" style={{paddingRight: "1rem"}}>
+                  <Button
+                    variant="secondary"
+                    className="btn-lg"
+                    type="submit"
+                    href="/"
+                  >
+                    Cancel
+                  </Button>
+                </Col>
+                <Col xs="auto">
+                  <Button
+                    variant="primary"
+                    className="btn-lg"
+                    type="submit"
+                    onClick={submitListing}
+                  >
+                    Submit
+                  </Button>
+                </Col>
+              </Form.Row>
+              </Form.Group>
+
+            </Form>
+          </Container>
+        </div>
+      );
+  }
 }

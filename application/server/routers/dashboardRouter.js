@@ -1,13 +1,5 @@
 const express = require("express");
 const router = express.Router();
-const {
-  getMyProducts,
-  // updateMyProduct, // not currently implemented (not P1 function)
-  deleteMyProduct,
-  getMyOffers,
-  getMyEmail,
-} = require("../controllers/dashboardController");
-
 
 /**
  * File name: dashboardRouter.js
@@ -15,12 +7,6 @@ const {
  *          Dashboard.js -> DashboardListingCard.js.
  * Authors: YG, Trenton
  */
-const express = require("express");
-const router = express.Router();
-
-//===========================================
-//                 Dashboard
-//===========================================
 
 const {
   getMyProducts,
@@ -29,6 +15,11 @@ const {
   getMyOffers,
   getMyEmail,
 } = require("../controllers/dashboardController");
+
+//===========================================
+//                 Dashboard
+//===========================================
+
 
 router.post("/getMyProducts", getMyProducts); // loads all listings into the dashboard
 // router.post("/updateMyProduct", updateMyProduct); // not currently implemented
